@@ -18,8 +18,18 @@
       {
         "command": "solo.solo",
         "title": "SOLO"
+      },
+      {
+        "command": "solo.controlMode",
+        "title": "CONTROL MODE"
       }
-    ]
+    ],
+    "keybindings": {
+      "command": "solo.controlMode",
+      "key": "alt+`",
+      "mac": "alt+`",
+      "when": "explorerViewletVisible && !inputFocus"
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
