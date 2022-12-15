@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:solo.helloWorld"
+    "onView:explorer",
+    "onCommand:solo.solo"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -24,6 +25,14 @@
         "title": "CONTROL MODE"
       }
     ],
+    "views": {
+      "explorer": [
+        {
+          "id": "explorer",
+          "name": "explorer"
+        }
+      ]
+    },
     "keybindings": {
       "command": "solo.controlMode",
       "key": "alt+`",
