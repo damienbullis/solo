@@ -10,36 +10,29 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:explorer",
-    "onCommand:solo.solo"
+    "onStartupFinished"
   ],
-  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "solo.solo",
-        "title": "SOLO"
-      },
-      {
-        "command": "solo.controlMode",
-        "title": "CONTROL MODE"
+        "command": "solo.menu",
+        "title": "SOLO: Reset"
       }
     ],
-    "views": {
-      "explorer": [
+    "menus": {
+      "view/title": [
         {
-          "id": "explorer",
-          "name": "explorer"
+          "command": "solo.menu"
         }
       ]
     },
     "keybindings": {
-      "command": "solo.controlMode",
+      "command": "solo.mode",
       "key": "alt+`",
-      "mac": "alt+`",
-      "when": "explorerViewletVisible && !inputFocus"
+      "mac": "alt+`"
     }
   },
+  "main": "./dist/extension.js",
   "scripts": {
     "vscode:prepublish": "yarn run package",
     "compile": "webpack",
