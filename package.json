@@ -15,22 +15,54 @@
   "contributes": {
     "commands": [
       {
-        "command": "solo.menu",
-        "title": "SOLO: Reset"
+        "command": "solo.mode.enable",
+        "title": "Enable",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "solo.mode.disable",
+        "title": "Disable",
+        "icon": "$(eye-closed)"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "solo.menu"
+          "command": "solo.mode.disable",
+          "when": "ext.soloMode == true",
+          "group": "navigation"
+        },
+        {
+          "command": "solo.mode.enable",
+          "when": "ext.soloMode == false",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "solo.mode.disable",
+          "when": "ext.soloMode == true"
+        },
+        {
+          "command": "solo.mode.enable",
+          "when": "ext.soloMode == false"
         }
       ]
     },
-    "keybindings": {
-      "command": "solo.mode",
-      "key": "alt+`",
-      "mac": "alt+`"
-    }
+    "keybindings": [
+      {
+        "command": "solo.mode.disable",
+        "key": "alt+`",
+        "mac": "alt+`",
+        "when": "ext.soloMode == true"
+      },
+      {
+        "command": "solo.mode.enable",
+        "key": "alt+`",
+        "mac": "alt+`",
+        "when": "ext.soloMode == false"
+      }
+    ]
   },
   "main": "./dist/extension.js",
   "scripts": {
