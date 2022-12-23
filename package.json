@@ -13,19 +13,39 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "configuration": {
+      "properties": {
+        "ext.soloMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "SOLO mode",
+          "scope": "application"
+        }
+      }
+    },
     "commands": [
       {
         "command": "solo.mode.enable",
-        "title": "Enable",
+        "title": "Enable SoloMode",
         "icon": "$(eye)"
       },
       {
         "command": "solo.mode.disable",
-        "title": "Disable",
+        "title": "Disable SoloMode",
         "icon": "$(eye-closed)"
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "solo.mode.disable",
+          "when": "false"
+        },
+        {
+          "command": "solo.mode.enable",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "solo.mode.disable",
@@ -41,11 +61,13 @@
       "view/item/context": [
         {
           "command": "solo.mode.disable",
-          "when": "ext.soloMode == true"
+          "when": "true",
+          "group": "inline"
         },
         {
           "command": "solo.mode.enable",
-          "when": "ext.soloMode == false"
+          "when": "true",
+          "group": "inline"
         }
       ]
     },
