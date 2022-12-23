@@ -17,9 +17,9 @@
       "properties": {
         "ext.soloMode": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "description": "SOLO mode",
-          "scope": "application"
+          "scope": "resource"
         }
       }
     },
@@ -32,6 +32,11 @@
       {
         "command": "solo.mode.disable",
         "title": "Disable SoloMode",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "solo.test",
+        "title": "Test",
         "icon": "$(eye-closed)"
       }
     ],
@@ -58,16 +63,11 @@
           "group": "navigation"
         }
       ],
-      "view/item/context": [
+      "explorer/context": [
         {
-          "command": "solo.mode.disable",
-          "when": "true",
-          "group": "inline"
-        },
-        {
-          "command": "solo.mode.enable",
-          "when": "true",
-          "group": "inline"
+          "command": "solo.test",
+          "when": "ext.soloMode == true",
+          "group": "navigation"
         }
       ]
     },
