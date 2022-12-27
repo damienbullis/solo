@@ -15,10 +15,11 @@
   "contributes": {
     "configuration": {
       "properties": {
-        "ext.soloMode": {
+        "soloMode": {
           "type": "boolean",
           "default": true,
-          "description": "SOLO mode",
+          "description": "While solo mode is active you will only see solo'd files in the explorer",
+          "title": "SOLO mode",
           "scope": "resource"
         }
       }

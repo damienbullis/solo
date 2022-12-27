@@ -1,6 +1,6 @@
 # SOLO
 
-SOLO is a `explorer` extension for reducing clutter in your file browser.
+SOLO is a `explorer` extension for reducing file clutter and let you focus on the files you want to see.
 
 ## Features
 
@@ -8,26 +8,47 @@ SOLO is a `explorer` extension for reducing clutter in your file browser.
 
 > Save you time searching for files.
 
-> Create profiles for current configuration of SOLO'd files.
+> Reduce clutter in your file explorer.
 
-**TODO's:**
+> Hide files you don't want to see.
 
-- [ ] Support for multiple solo'd files/directories
-- [ ] SOLO
-  - [ ] if you currently have solo'd files/directories, add the new file/directory to the list
-- [ ] UNSOLO
-  - [ ] if unsoloing release all solo'd files/directories
-- [ ] Profiles
-  - [ ] save the current solo'd files/directories to a profile
-  - [ ] delete a profile
+---
 
-## Requirements
+## Roapmap
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- ### `0.1.0`
+  - [ ] Single solo
+- ### `0.2.0`
+  - [ ] Multi solo
+- ### `0.3.0`
+  - [ ] Persistant state for workspaces
+- ### `0.4.0`
+  - [ ] Profiles
+- ### `0.5.0`
+  - [ ] Styles for explorer items? (discovery)
+  - [ ] Icons and Assets
+- ### `0.6.0`
+  - [ ] Testing
+- ### `0.7.0`
+  - [ ] Docs (pretty)
+    - [ ] Badges
+    - [ ] Gif (doc image / video)
+- ### `0.8.0`
+  - [ ] Bug fixes
+- ### `0.9.0`
+  - [ ] CI / CD
+  - [ ] Github Actions
+  - [ ] Clean up
+- ### `1.0.0`
+  - [ ] Publish to marketplace
+
+---
 
 ## Extension Settings
 
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+
+// NEXT: Add in extension settings
 
 For example:
 
@@ -38,43 +59,8 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+... TODO: ...
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-- Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-- Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+... TODO: ...
