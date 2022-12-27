@@ -1,4 +1,4 @@
-import { ExtensionContext } from "vscode";
+import { ExtensionContext, workspace } from "vscode";
 
 // import setSoloCommands from "./solo";
 // import setProfilesCommands from "./profiles";
@@ -11,8 +11,6 @@ export default function buildCommands(context: ExtensionContext) {
 
   buildModeCommands(context);
   console.log("mode commands registered", {
-    globalState,
-    workspaceState,
     context,
   });
 

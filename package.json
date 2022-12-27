@@ -6,6 +6,7 @@
   "engines": {
     "vscode": "^1.74.0"
   },
+  "publisher": "@damienbullis",
   "categories": [
     "Other"
   ],
@@ -15,7 +16,7 @@
   "contributes": {
     "configuration": {
       "properties": {
-        "soloMode": {
+        "solo.soloMode": {
           "type": "boolean",
           "default": true,
           "description": "While solo mode is active you will only see solo'd files in the explorer",
@@ -26,12 +27,12 @@
     },
     "commands": [
       {
-        "command": "solo.mode.enable",
+        "command": "solo.mode.disable",
         "title": "Enable SoloMode",
         "icon": "$(eye)"
       },
       {
-        "command": "solo.mode.disable",
+        "command": "solo.mode.enable",
         "title": "Disable SoloMode",
         "icon": "$(eye-closed)"
       }
@@ -50,12 +51,12 @@
       "view/title": [
         {
           "command": "solo.mode.disable",
-          "when": "ext.soloMode == true",
+          "when": "solo.soloMode == true",
           "group": "navigation"
         },
         {
           "command": "solo.mode.enable",
-          "when": "ext.soloMode == false",
+          "when": "solo.soloMode == false",
           "group": "navigation"
         }
       ]
@@ -65,13 +66,13 @@
         "command": "solo.mode.disable",
         "key": "alt+`",
         "mac": "alt+`",
-        "when": "ext.soloMode == true"
+        "when": "solo.soloMode == true"
       },
       {
         "command": "solo.mode.enable",
         "key": "alt+`",
         "mac": "alt+`",
-        "when": "ext.soloMode == false"
+        "when": "solo.soloMode == false"
       }
     ]
   },

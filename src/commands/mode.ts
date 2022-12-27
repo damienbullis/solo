@@ -1,16 +1,18 @@
-import { commands, ExtensionContext } from "vscode";
-
-let mode = false;
+import { commands, ExtensionContext, workspace } from "vscode";
 
 export default (context: ExtensionContext) => {
   const { globalState, workspaceState, subscriptions } = context;
   // push mode commands to subscriptions
   subscriptions.push(
     commands.registerCommand("solo.mode.enable", () => {
-      mode = true;
+      workspace.getConfiguration("solo").update("soloMode", true);
+      commands.executeCommand("setContext", "solo.soloMode", true);
+      console.log("mode enabled");
     }),
     commands.registerCommand("solo.mode.disable", () => {
-      mode = false;
+      workspace.getConfiguration("solo").update("soloMode", false);
+      commands.executeCommand("setContext", "solo.soloMode", false);
+      console.log("mode disabled");
     })
   );
 };
