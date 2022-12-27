@@ -34,11 +34,6 @@
         "command": "solo.mode.disable",
         "title": "Disable SoloMode",
         "icon": "$(eye-closed)"
-      },
-      {
-        "command": "solo.test",
-        "title": "Test",
-        "icon": "$(eye-closed)"
       }
     ],
     "menus": {
@@ -61,13 +56,6 @@
         {
           "command": "solo.mode.enable",
           "when": "ext.soloMode == false",
-          "group": "navigation"
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "solo.test",
-          "when": "ext.soloMode == true",
           "group": "navigation"
         }
       ]
