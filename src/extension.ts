@@ -6,7 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
   // const { globalState, workspaceState } = context;
 
   // Initialize the extension state
-  initializeExtension();
+  initializeExtension(context);
 
   // Build and subscribe to commands
   buildCommands(context);

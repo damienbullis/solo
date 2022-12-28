@@ -18,7 +18,7 @@
       "properties": {
         "solo.soloMode": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "While solo mode is active you will only see solo'd files in the explorer",
           "title": "SOLO mode",
           "scope": "application"
