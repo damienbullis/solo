@@ -2,26 +2,7 @@ import initializeMode from "./mode";
 import initializeExcludeList from "./excludeList";
 import initializeSoloList from "./soloList";
 import { ConfigurationTarget, ExtensionContext, Uri, workspace } from "vscode";
-
-export type StoreType = {
-  mode: boolean;
-  workspaceDir: [string, Uri][];
-  initialExclude: unknown;
-  initialSolo: unknown;
-  excludeList: unknown;
-  soloList: unknown;
-};
-
-const store: StoreType = {
-  mode: false,
-  workspaceDir: [],
-  // for resetting the exclude list
-  initialExclude: [],
-  // for resetting the solo list
-  initialSolo: [],
-  excludeList: [],
-  soloList: [],
-};
+import store from "../store";
 
 export default function initializeExtension(context: ExtensionContext) {
   console.log("initializing extension");

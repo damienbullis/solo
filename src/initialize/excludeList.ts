@@ -1,7 +1,7 @@
-import { ConfigurationTarget, workspace } from "vscode";
-import { StoreType } from ".";
+import { ConfigurationTarget, Uri, workspace } from "vscode";
+import { TypeStore } from "../store";
 
-export default async function (store: StoreType) {
+export default async function (store: TypeStore) {
   console.log("initializing exclude list", { store });
   //
   const filesConfig = workspace.getConfiguration("files");
@@ -25,12 +25,12 @@ export default async function (store: StoreType) {
       const has = c.find((n) => n.includes(name));
       return has === undefined;
     });
-    console.log("checkFor", workDir);
-    store.workspaceDir = workDir.map(([name]) => {
+    const next = workDir.map(([name]) => {
       // get the uri
       const uri = workspaceUri.with({ path: `${workspaceUri.path}/${name}` });
-      return [name, uri];
+      return [name, uri] as [string, Uri];
     });
+    store.set("workspaceDir", next);
     const [name, type] = workDir.find(([name]) => name === ".vscode") || [];
     if (name === ".vscode" && type === 2) {
       shouldAdd = false;
@@ -38,20 +38,21 @@ export default async function (store: StoreType) {
   }
   if (shouldAdd) {
     const initialList = {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       ".vscode": true,
     };
 
     console.log(
       "trigger should add true, setting initial exclude to empty object"
     );
-    store.initialExclude = initialList;
-    store.excludeList = initialList;
+    store.set("initialExclude", initialList);
+    store.set("excludeList", initialList);
     filesConfig.update("exclude", initialList, ConfigurationTarget.Workspace);
   } else {
     console.log(
       "trigger should add false, setting initial exclude to workspace value"
     );
-    store.initialExclude = workspaceValue || {};
-    store.excludeList = workspaceValue || {};
+    store.set("initialExclude", workspaceValue || {});
+    store.set("excludeList", workspaceValue || {});
   }
 }
