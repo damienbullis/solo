@@ -23,13 +23,10 @@ const initStore: TypeInitStore = {
 function createStore() {
   const store = { ...initStore };
   return {
-    resetStore: () => {
-      return { ...initStore };
-    },
     set: <K extends keyof TypeInitStore>(key: K, value: TypeInitStore[K]) => {
       store[key] = value;
     },
-    get: (key: keyof TypeInitStore) => {
+    get: <K extends keyof TypeInitStore>(key: K) => {
       return store[key];
     },
   };
