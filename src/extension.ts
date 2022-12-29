@@ -16,7 +16,8 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
   // reset the exclude list
   const resetWith = store.get("initialExclude");
+  const pretty = JSON.stringify(resetWith, null, 2);
   const filesConfig = vscode.workspace.getConfiguration("files");
-  console.log("resetting exclude list", { resetWith });
+  console.log("resetting exclude list\n", pretty);
   filesConfig.update("exclude", {}, vscode.ConfigurationTarget.Workspace);
 }

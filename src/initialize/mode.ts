@@ -10,6 +10,7 @@ export default function () {
       .getConfiguration("solo")
       .update("soloMode", v, ConfigurationTarget.Global);
   }
+  // not sure if this is needed
   store.set("mode", v as boolean);
   commands.executeCommand("setContext", "solo.soloMode", v);
 }
