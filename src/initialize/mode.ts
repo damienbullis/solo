@@ -1,7 +1,7 @@
 import { workspace, ConfigurationTarget, commands } from "vscode";
-import { StoreType } from ".";
+import store from "../store";
 
-export default function (store: StoreType) {
+export default function () {
   const check = workspace.getConfiguration("solo").inspect("soloMode");
   const v = check?.globalValue || check?.defaultValue || false;
   if (check?.globalValue === undefined) {
@@ -10,6 +10,6 @@ export default function (store: StoreType) {
       .getConfiguration("solo")
       .update("soloMode", v, ConfigurationTarget.Global);
   }
-  store.mode = v as boolean;
+  store.set("mode", v as boolean);
   commands.executeCommand("setContext", "solo.soloMode", v);
 }

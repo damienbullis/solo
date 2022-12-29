@@ -1,5 +1,5 @@
-import { StoreType } from ".";
+import store from "../store";
 
-export default async function (store: StoreType) {
+export default async function () {
   console.log("initializing solo list", { store });
 }

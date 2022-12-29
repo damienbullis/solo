@@ -1,11 +1,10 @@
 import initializeMode from "./mode";
 import initializeExcludeList from "./excludeList";
 import initializeSoloList from "./soloList";
-import { ConfigurationTarget, ExtensionContext, Uri, workspace } from "vscode";
+import { ExtensionContext, workspace } from "vscode";
 import store from "../store";
 
 export default function initializeExtension(context: ExtensionContext) {
-  console.log("initializing extension");
   // set up listener on workspace config change on files.exclude
   context.subscriptions.push(
     workspace.onDidChangeConfiguration((e) => {
@@ -20,7 +19,7 @@ export default function initializeExtension(context: ExtensionContext) {
     })
   );
 
-  initializeMode(store);
-  initializeExcludeList(store);
-  initializeSoloList(store);
+  initializeMode();
+  initializeExcludeList();
+  initializeSoloList();
 }

@@ -10,9 +10,6 @@ export default function buildCommands(context: ExtensionContext) {
   //#region Mode Commands (enable/disable)
 
   buildModeCommands(context);
-  console.log("mode commands registered", {
-    context,
-  });
 
   //#endregion
 
