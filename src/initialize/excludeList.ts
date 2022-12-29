@@ -3,7 +3,7 @@ import store from "../store";
 
 export default async function () {
   const filesConfig = workspace.getConfiguration("files");
-  const res = filesConfig.inspect("exclude");
+  const res = filesConfig.inspect<{ [key: string]: boolean }>("exclude");
 
   // check workspace settings in res
   const { defaultValue, globalValue, workspaceValue } = res || {};
@@ -30,9 +30,6 @@ export default async function () {
     });
     store.set("workspaceDir", next);
   }
-  store.set(
-    "initialExclude",
-    (workspaceValue as { [key: string]: boolean }) || {}
-  );
+  store.set("initialExclude", workspaceValue);
   store.set("excludeList", workspaceValue || {});
 }

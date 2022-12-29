@@ -14,10 +14,20 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-  // reset the exclude list
+  // reset the exclude list to the initial state
   const resetWith = store.get("initialExclude");
-  const pretty = JSON.stringify(resetWith, null, 2);
+  if (!resetWith) {
+    console.log("no initial exclude list to reset with");
+    return;
+  }
   const filesConfig = vscode.workspace.getConfiguration("files");
-  console.log("resetting exclude list\n", pretty);
-  filesConfig.update("exclude", {}, vscode.ConfigurationTarget.Workspace);
+  console.log(
+    "deactivating with exclude list\n",
+    JSON.stringify(resetWith, null, 2)
+  );
+  filesConfig.update(
+    "exclude",
+    resetWith,
+    vscode.ConfigurationTarget.Workspace
+  );
 }

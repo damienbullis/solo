@@ -35,6 +35,14 @@
         "command": "solo.mode.enable",
         "title": "Disable SoloMode",
         "icon": "$(eye-closed)"
+      },
+      {
+        "command": "solo.solo.add",
+        "title": "SOLO"
+      },
+      {
+        "command": "solo.solo.remove",
+        "title": "RELEASE"
       }
     ],
     "menus": {
@@ -45,6 +53,14 @@
         },
         {
           "command": "solo.mode.enable",
+          "when": "false"
+        },
+        {
+          "command": "solo.solo.add",
+          "when": "false"
+        },
+        {
+          "command": "solo.solo.remove",
           "when": "false"
         }
       ],
@@ -57,6 +73,18 @@
         {
           "command": "solo.mode.enable",
           "when": "solo.soloMode == false",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "solo.solo.add",
+          "when": "resourceFilename not in solo.solodFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "solo.solo.remove",
+          "when": "resourceFilename in solo.solodFiles",
           "group": "navigation"
         }
       ]

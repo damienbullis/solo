@@ -3,10 +3,10 @@ import { Uri } from "vscode";
 export type TypeInitStore = {
   mode: boolean;
   workspaceDir: [string, Uri][];
-  workspaceUri: Uri;
-  initialExclude: { [key: string]: boolean };
+  workspaceUri: Uri | null;
+  initialExclude: { [key: string]: boolean } | undefined;
   initialSolo: unknown;
-  excludeList: unknown;
+  excludeList: { [key: string]: boolean };
   soloList: unknown;
 };
 
@@ -14,9 +14,9 @@ export type TypeInitStore = {
 const initStore: TypeInitStore = {
   mode: false,
   workspaceDir: [],
-  workspaceUri: {} as Uri,
+  workspaceUri: null,
   // for resetting the exclude list
-  initialExclude: {},
+  initialExclude: undefined,
   // for resetting the solo list
   initialSolo: {},
   excludeList: {},
@@ -40,5 +40,4 @@ function createStore() {
 
 const store = createStore();
 
-export type TypeStore = ReturnType<typeof createStore>;
 export default store;
