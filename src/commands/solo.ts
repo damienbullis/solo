@@ -33,6 +33,14 @@ export default (context: ExtensionContext) => {
     }),
     commands.registerCommand("solo.solo.reset", () => {
       console.log("solo.reset");
+    }),
+    commands.registerCommand("solo.solo.update", () => {
+      console.log("solo.update");
+      // this is a command that will look at the solo list & the exclude list & the workspace folders
+      // and build a new exclude list
+      // then it will update the exclude list in the workspace config
+      // then it will update the exclude list in the store
+      // then it will update the context
     })
   );
 };

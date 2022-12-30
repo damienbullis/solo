@@ -1,13 +1,13 @@
-import { ExtensionContext } from "vscode";
+import { commands, ExtensionContext } from "vscode";
 import buildCommands from "./commands";
 import initializeExtension from "./initialize";
 
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
   // Initialize the extension state
-  initializeExtension(context);
-
+  await initializeExtension(context);
   // Build and subscribe to commands
   buildCommands(context);
+  commands.executeCommand("solo.solo.update");
 }
 
 export function deactivate() {

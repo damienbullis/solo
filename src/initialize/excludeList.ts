@@ -33,5 +33,6 @@ export default async function () {
     store.set("workspaceDir", next);
   }
   store.set("initialExclude", workspaceValue);
+  return Promise.resolve();
   // store.set("excludeList", workspaceValue || {});
 }

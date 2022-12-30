@@ -1,9 +1,9 @@
 import initializeMode from "./mode";
 import initializeExcludeList from "./excludeList";
 import initializeSoloList from "./soloList";
-import { ExtensionContext, workspace } from "vscode";
+import { commands, ExtensionContext, workspace } from "vscode";
 
-export default function initializeExtension(context: ExtensionContext) {
+export default async function initializeExtension(context: ExtensionContext) {
   // set up listener on workspace config change on files.exclude
   // FIXME: not sure what to use this for yet or if needed...
   context.subscriptions.push(
@@ -21,6 +21,6 @@ export default function initializeExtension(context: ExtensionContext) {
   );
 
   initializeMode();
-  initializeExcludeList();
+  await initializeExcludeList();
   initializeSoloList();
 }
