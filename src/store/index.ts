@@ -1,26 +1,21 @@
 import { Uri } from "vscode";
 
 export type TypeInitStore = {
-  mode: boolean;
   workspaceDir: [string, Uri][];
   workspaceUri: Uri | null;
   initialExclude: { [key: string]: boolean } | undefined;
-  initialSolo: unknown;
+  initialSolo: string[];
   excludeList: { [key: string]: boolean };
-  soloList: unknown;
 };
 
-// FIXME: fix some of the types
 const initStore: TypeInitStore = {
-  mode: false,
   workspaceDir: [],
   workspaceUri: null,
   // for resetting the exclude list
   initialExclude: undefined,
   // for resetting the solo list
-  initialSolo: {},
+  initialSolo: [],
   excludeList: {},
-  soloList: {},
 };
 
 function createStore() {
@@ -28,11 +23,11 @@ function createStore() {
   const store = { ...initStore };
   return {
     set: <K extends keyof TypeInitStore>(key: K, value: TypeInitStore[K]) => {
-      console.log(`setting store with `, { [key]: value });
+      console.log(`SET_STORE: `, { [key]: value });
       store[key] = value;
     },
     get: <K extends keyof TypeInitStore>(key: K) => {
-      console.log(`getting key in store ${key}`);
+      console.log(`STORE[${key}]: `, store[key]);
       return store[key];
     },
   };

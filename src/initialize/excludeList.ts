@@ -1,18 +1,20 @@
-import { ConfigurationTarget, Uri, workspace } from "vscode";
+import { Uri, workspace } from "vscode";
 import store from "../store";
 
-export default async function () {
-  const filesConfig = workspace.getConfiguration("files");
-  const res = filesConfig.inspect<{ [key: string]: boolean }>("exclude");
+const { getConfiguration, fs, workspaceFolders } = workspace;
 
+export default async function () {
   // check workspace settings in res
+  const res = getConfiguration("files").inspect<{ [key: string]: boolean }>(
+    "exclude"
+  );
   const { defaultValue, globalValue, workspaceValue } = res || {};
   // get the uri of the workspace folder
-  const workspaceUri = workspace.workspaceFolders?.[0].uri;
+  const workspaceUri = workspaceFolders?.[0].uri;
   // get the root uri
   if (workspaceUri) {
     store.set("workspaceUri", workspaceUri);
-    const _workDir = await workspace.fs.readDirectory(workspaceUri);
+    const _workDir = await fs.readDirectory(workspaceUri);
     const checkFor = {
       ...(defaultValue as object),
       ...(globalValue as object),
@@ -31,5 +33,5 @@ export default async function () {
     store.set("workspaceDir", next);
   }
   store.set("initialExclude", workspaceValue);
-  store.set("excludeList", workspaceValue || {});
+  // store.set("excludeList", workspaceValue || {});
 }

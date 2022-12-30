@@ -1,34 +1,38 @@
-import { commands, ExtensionContext } from "vscode";
+import {
+  commands,
+  ConfigurationTarget,
+  ExtensionContext,
+  workspace,
+} from "vscode";
+import store from "../store";
 
 export default (context: ExtensionContext) => {
   const { subscriptions } = context;
   subscriptions.push(
     commands.registerCommand("solo.solo.add", (...args) => {
-      console.log("solo.add", { args });
-      // NEXT: solo.add
-      // set the selected file/dir in `include`
-      // add the selected file/dir to store.solodFiles
-      // NEXT: check workspace
-      // get all files and folders in the workspace
-      // filter out the selected file/dir
-      // combine the filtered files/folders with the current excluded files
-      // NEXT: fn's to use
-      // fn to get the current workspace files and folders
-      // fn to take the current workspace files and folders and filter out the selected file/dir
-      // fn to combine the filtered files/folders with the current excluded files
-      // fn to update the exclude list
+      // check if multiple items have been selected
+      // if so, add all of them to the solo list
+      // if not, add the current file to the solo list
+      const [, ...rest] = args;
+      const _soloList = [...store.get("initialSolo")];
+      if (rest) {
+        for (const uri of rest[0]) {
+          if (!_soloList.includes(uri.path)) {
+            _soloList.push(uri.path);
+          }
+        }
+      }
+      workspace
+        .getConfiguration("solo")
+        .update("solodFiles", _soloList, ConfigurationTarget.Workspace);
+      commands.executeCommand("setContext", "solo.solodFiles", _soloList);
+      console.log("solo.add", _soloList);
     }),
     commands.registerCommand("solo.solo.remove", () => {
       console.log("solo.remove");
-      // NEXT: solo.remove
-      // fn to remove the selected file/dir from store.solodFiles
-      // fn to add the selected file/dir to the current excluded files
-      // fn to update the exclude list
     }),
     commands.registerCommand("solo.solo.reset", () => {
       console.log("solo.reset");
-      // NEXT: solo.reset
-      // reset the exclude list to the initial excluded files
     })
   );
 };
