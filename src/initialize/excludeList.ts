@@ -41,7 +41,7 @@ export default async function () {
   }
   if (workspaceValue) {
     // set the initial exclude list
-    // store.set("excludeList", workspaceValue);
+    store.set("excludeList", workspaceValue);
     await workspace
       .getConfiguration("solo")
       .update("initialExclude", workspaceValue, ConfigurationTarget.Workspace);

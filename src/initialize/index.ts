@@ -5,8 +5,8 @@ import resetExcludeList from "./resetExcludeList";
 import { ExtensionContext, workspace } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
 
-export default async function initializeExtension(context: ExtensionContext) {
-  $LOG("initializeExtension", LOG_TYPES.SYSTEM);
+export default async function (context: ExtensionContext) {
+  $LOG("Initialize Extension", LOG_TYPES.SYSTEM);
 
   // set up listener on workspace config change on files.exclude
   // FIXME: not sure what to use this for yet or if needed...

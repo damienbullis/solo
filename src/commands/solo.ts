@@ -5,7 +5,7 @@ import {
   Uri,
   workspace,
 } from "vscode";
-import { $LOG, LOG_TYPES } from "../helpers";
+import { $LOG, LOG_TYPES, processFiles } from "../helpers";
 import store from "../store";
 
 export default (context: ExtensionContext) => {
@@ -37,27 +37,25 @@ export default (context: ExtensionContext) => {
     commands.registerCommand("solo.solo.reset", () => {
       $LOG("solo.reset");
     }),
+
     commands.registerCommand("solo.solo.update", () => {
-      // this is a command that will look at the solo list & the exclude list & the workspace folders
       const solodFiles = workspace
           .getConfiguration("solo")
           .get<string[]>("solodFiles"),
         { workspaceValue: excludeFiles } =
           workspace
             .getConfiguration("files")
-            .inspect<Record<string, Uri>>("exclude") || {};
-      const dir = store.get("workspaceDir"),
-        rootUri = store.get("workspaceUri");
+            .inspect<Record<string, boolean>>("exclude") || {};
+
       $LOG("solo update command", LOG_TYPES.WARN, {
         solodFiles,
         excludeFiles,
-        dir,
-        rootUri,
       });
-      // and build a new exclude list
-      // then it will update the exclude list in the workspace config
-      // then it will update the exclude list in the store
-      // then it will update the context
+      if (!solodFiles) {
+        $LOG("nothing to update", LOG_TYPES.WARN);
+        return;
+      }
+      processFiles(solodFiles, excludeFiles);
     })
   );
 };
