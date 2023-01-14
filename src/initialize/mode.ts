@@ -1,5 +1,4 @@
 import { workspace, ConfigurationTarget, commands } from "vscode";
-import store from "../store";
 
 export default function () {
   const check = workspace.getConfiguration("solo").inspect<boolean>("soloMode");

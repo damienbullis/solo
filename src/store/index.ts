@@ -1,4 +1,5 @@
 import { Uri } from "vscode";
+import { $LOG, LOG_TYPES } from "../helpers";
 
 export type TypeInitStore = {
   workspaceDir: [string, Uri][];
@@ -19,15 +20,15 @@ const initStore: TypeInitStore = {
 };
 
 function createStore() {
-  console.log("creating store");
+  $LOG(`Creating Store`, LOG_TYPES.SYSTEM);
   const store = { ...initStore };
   return {
     set: <K extends keyof TypeInitStore>(key: K, value: TypeInitStore[K]) => {
-      console.log(`SET_STORE: `, { [key]: value });
+      $LOG(`SET_STORE: `, LOG_TYPES.STORE, { [key]: value });
       store[key] = value;
     },
     get: <K extends keyof TypeInitStore>(key: K) => {
-      console.log(`STORE[${key}]: `, store[key]);
+      $LOG(`STORE[${key}]: `, LOG_TYPES.STORE, store[key]);
       return store[key];
     },
   };

@@ -2,11 +2,14 @@ import {
   commands,
   ConfigurationTarget,
   ExtensionContext,
+  Uri,
   workspace,
 } from "vscode";
+import { $LOG, LOG_TYPES } from "../helpers";
 import store from "../store";
 
 export default (context: ExtensionContext) => {
+  $LOG("Build Solo Commands", LOG_TYPES.SYSTEM);
   const { subscriptions } = context;
   subscriptions.push(
     commands.registerCommand("solo.solo.add", (...args) => {
@@ -26,17 +29,31 @@ export default (context: ExtensionContext) => {
         .getConfiguration("solo")
         .update("solodFiles", _soloList, ConfigurationTarget.Workspace);
       commands.executeCommand("setContext", "solo.solodFiles", _soloList);
-      console.log("solo.add", _soloList);
+      $LOG("solo.add", LOG_TYPES.INFO, _soloList);
     }),
     commands.registerCommand("solo.solo.remove", () => {
-      console.log("solo.remove");
+      $LOG("solo.remove");
     }),
     commands.registerCommand("solo.solo.reset", () => {
-      console.log("solo.reset");
+      $LOG("solo.reset");
     }),
     commands.registerCommand("solo.solo.update", () => {
-      console.log("solo.update");
       // this is a command that will look at the solo list & the exclude list & the workspace folders
+      const solodFiles = workspace
+          .getConfiguration("solo")
+          .get<string[]>("solodFiles"),
+        { workspaceValue: excludeFiles } =
+          workspace
+            .getConfiguration("files")
+            .inspect<Record<string, Uri>>("exclude") || {};
+      const dir = store.get("workspaceDir"),
+        rootUri = store.get("workspaceUri");
+      $LOG("solo update command", LOG_TYPES.WARN, {
+        solodFiles,
+        excludeFiles,
+        dir,
+        rootUri,
+      });
       // and build a new exclude list
       // then it will update the exclude list in the workspace config
       // then it will update the exclude list in the store

@@ -4,9 +4,11 @@ import {
   workspace,
   ConfigurationTarget,
 } from "vscode";
+import { $LOG, LOG_TYPES } from "../helpers";
 import store from "../store";
 
 export default ({ subscriptions }: ExtensionContext) => {
+  $LOG("Build Mode Commands", LOG_TYPES.SYSTEM);
   const soloConfig = workspace.getConfiguration("solo");
   const filesConfig = workspace.getConfiguration("files");
   subscriptions.push(
@@ -16,7 +18,7 @@ export default ({ subscriptions }: ExtensionContext) => {
       commands.executeCommand("setContext", "solo.soloMode", true);
       // Update the exclude list to be an empty object
       filesConfig.update("exclude", {}, ConfigurationTarget.Workspace);
-      console.log("mode enabled");
+      $LOG("mode enabled");
     }),
     commands.registerCommand("solo.mode.disable", () => {
       // Set the solo mode to false
@@ -28,7 +30,7 @@ export default ({ subscriptions }: ExtensionContext) => {
         store.get("excludeList"),
         ConfigurationTarget.Workspace
       );
-      console.log("mode disabled");
+      $LOG("mode disabled");
     })
   );
 };
