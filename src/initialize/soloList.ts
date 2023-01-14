@@ -9,11 +9,6 @@ export default function () {
 
   if (workspaceValue) {
     store.set("initialSolo", workspaceValue);
-    soloConfig.update(
-      "solodFiles",
-      workspaceValue,
-      ConfigurationTarget.Workspace
-    );
     commands.executeCommand("setContext", "solo.solodFiles", workspaceValue);
   } else {
     soloConfig.update("solodFiles", [], ConfigurationTarget.Workspace);

@@ -4,7 +4,7 @@ import { $LOG, LOG_TYPES } from "../helpers";
 type ExcludeListType = { [key: string]: boolean } | null;
 
 export default async function resetExcludeList() {
-  $LOG("resetExcludeList", LOG_TYPES.SYSTEM);
+  $LOG("Reset Exclude List", LOG_TYPES.SYSTEM);
   // This is a bit of a work-around to reset the exclude list
   // on start if check if we have a previous exclude list
   // if we do, then we reset the exclude list to the previous exclude list

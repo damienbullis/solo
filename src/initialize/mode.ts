@@ -1,6 +1,7 @@
 import { workspace, ConfigurationTarget, commands } from "vscode";
 
 export default function () {
+  // This `should` track the global value of the setting across sessions.
   const check = workspace.getConfiguration("solo").inspect<boolean>("soloMode");
   const v = check?.globalValue || check?.defaultValue || false;
   if (check?.globalValue === undefined) {
