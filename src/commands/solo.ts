@@ -40,22 +40,17 @@ export default (context: ExtensionContext) => {
 
     commands.registerCommand("solo.solo.update", () => {
       const solodFiles = workspace
-          .getConfiguration("solo")
-          .get<string[]>("solodFiles"),
-        { workspaceValue: excludeFiles } =
-          workspace
-            .getConfiguration("files")
-            .inspect<Record<string, boolean>>("exclude") || {};
+        .getConfiguration("solo")
+        .get<string[]>("solodFiles");
 
       $LOG("solo update command", LOG_TYPES.WARN, {
         solodFiles,
-        excludeFiles,
       });
       if (!solodFiles) {
         $LOG("nothing to update", LOG_TYPES.WARN);
         return;
       }
-      processFiles(solodFiles, excludeFiles);
+      processFiles(solodFiles);
     })
   );
 };
