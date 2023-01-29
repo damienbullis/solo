@@ -50,7 +50,7 @@ export default (context: ExtensionContext) => {
         $LOG("nothing to update", LOG_TYPES.WARN);
         return;
       }
-      processFiles(solodFiles);
+      // processFiles(solodFiles);
     })
   );
 };

@@ -11,8 +11,9 @@ export default async function (context: ExtensionContext) {
   initializeMode();
 
   // After initializing the mode...
-  // we can reset the current exclude list to the previous exclude list (if any)
-  // to maintain continuity
+  // - reset excluded files list
+  //   - to initial excluded files list (if any)
+  //   - or to empty list
 
   // Get the workspace uri
 
@@ -25,7 +26,7 @@ export default async function (context: ExtensionContext) {
   // At this point we have the workspace uri and the solod files for that workspace uri
   // We can now initialize the exclude list.
 
-  await resetExcludeList();
-  await initializeExcludeList();
-  initializeSoloList();
+  // await resetExcludeList();
+  // await initializeExcludeList();
+  // initializeSoloList();
 }

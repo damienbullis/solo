@@ -15,8 +15,8 @@ const colors = {
 const logLevels = {
   INFO: true,
   WARN: true,
-  SYSTEM: false,
-  STORE: false,
+  SYSTEM: true,
+  STORE: true,
 };
 
 export const $LOG = (
@@ -55,6 +55,7 @@ export const $LOG = (
       break;
   }
   if (additional.length && triggerAdditional) {
+    // only show additional if we the log level is in the store (visible)
     console.log(...additional);
   }
 };
