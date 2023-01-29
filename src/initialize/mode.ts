@@ -1,4 +1,5 @@
 import { workspace, ConfigurationTarget, commands } from "vscode";
+import { $LOG, LOG_TYPES } from "../helpers";
 
 /**
  * Solo Mode
@@ -10,6 +11,7 @@ import { workspace, ConfigurationTarget, commands } from "vscode";
  *    - This will show all files (in the current workspace)
  */
 export default function () {
+  $LOG("Initialize Solo Mode", LOG_TYPES.SYSTEM);
   const check = workspace.getConfiguration("solo").inspect<boolean>("soloMode");
   // This first will grab the previous value of soloMode, if it exists
   // If it doesn't, grab the default value of soloMode
@@ -23,4 +25,5 @@ export default function () {
   }
   // set context for soloMode to allow for conditional Commands, Menus, and File Explorer decorations
   commands.executeCommand("setContext", "solo.soloMode", v);
+  $LOG("Initialize Solo Mode Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

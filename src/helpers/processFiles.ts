@@ -8,7 +8,7 @@ export default async function (solodFiles: string[]) {
     rootUri = store.get("workspaceUri");
 
   if (!dir || !rootUri) {
-    $LOG("No workspace directory or root uri found", LOG_TYPES.WARN);
+    $LOG("No workspace directory or root uri found", LOG_TYPES.SYSTEM_WARN);
     return;
   }
 
@@ -27,12 +27,12 @@ export default async function (solodFiles: string[]) {
         next[name] = true;
       }
     });
-    $LOG(`Processed: `, LOG_TYPES.WARN, { complete, current, next });
+    $LOG(`Processed: `, LOG_TYPES.SYSTEM_WARN, { complete, current, next });
     // This is everything inside of the current solod dir
     const _currentDir = await workspace.fs.readDirectory(current[0][1]);
     for (const [name, type] of _currentDir) {
       $LOG(`Current Dir: `, "INFO", { name, type });
     }
-    $LOG(`Current Dir: `, "WARN", { _currentDir });
+    $LOG(`Current Dir: `, "SYSTEM_WARN", { _currentDir });
   }
 }

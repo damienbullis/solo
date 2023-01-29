@@ -43,11 +43,11 @@ export default (context: ExtensionContext) => {
         .getConfiguration("solo")
         .get<string[]>("solodFiles");
 
-      $LOG("solo update command", LOG_TYPES.WARN, {
+      $LOG("solo update command", LOG_TYPES.SYSTEM_WARN, {
         solodFiles,
       });
       if (!solodFiles) {
-        $LOG("nothing to update", LOG_TYPES.WARN);
+        $LOG("nothing to update", LOG_TYPES.SYSTEM_WARN);
         return;
       }
       // processFiles(solodFiles);

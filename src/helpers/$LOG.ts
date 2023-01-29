@@ -1,22 +1,28 @@
 export const LOG_TYPES = {
   INFO: "INFO",
-  WARN: "WARN",
-  SYSTEM: "SYSTEM",
   STORE: "STORE",
+  SYSTEM: "SYSTEM",
+  SYSTEM_WARN: "SYSTEM_WARN",
+  SYSTEM_ERROR: "SYSTEM_ERROR",
+  SYSTEM_SUCCESS: "SYSTEM_SUCCESS",
 } as const;
 
 const colors = {
   [LOG_TYPES.INFO]: "color: #B2B2B2",
-  [LOG_TYPES.WARN]: "color: #FFB26B",
-  [LOG_TYPES.SYSTEM]: "color: #00ABB3",
   [LOG_TYPES.STORE]: "color: #FF0032",
+  [LOG_TYPES.SYSTEM]: "color: #00ABB3",
+  [LOG_TYPES.SYSTEM_WARN]: "color: #FD841F",
+  [LOG_TYPES.SYSTEM_ERROR]: "color: #CD0404",
+  [LOG_TYPES.SYSTEM_SUCCESS]: "color: #03C988",
 };
 
 const logLevels = {
   INFO: true,
-  WARN: true,
-  SYSTEM: true,
   STORE: true,
+  SYSTEM: true,
+  SYSTEM_WARN: true,
+  SYSTEM_ERROR: true,
+  SYSTEM_SUCCESS: true,
 };
 
 export const $LOG = (
@@ -28,9 +34,21 @@ export const $LOG = (
   // if the log level is not in the store, then we don't log it
   let triggerAdditional = false;
   switch (type) {
-    case LOG_TYPES.WARN:
-      if (logLevels.WARN) {
-        console.log(`%c${msg}`, colors[LOG_TYPES.WARN]);
+    case LOG_TYPES.SYSTEM_WARN:
+      if (logLevels.SYSTEM_WARN) {
+        console.log(`%c${msg}`, colors[LOG_TYPES.SYSTEM_WARN]);
+        triggerAdditional = true;
+      }
+      break;
+    case LOG_TYPES.SYSTEM_ERROR:
+      if (logLevels.SYSTEM_ERROR) {
+        console.log(`%c${msg}`, colors[LOG_TYPES.SYSTEM_ERROR]);
+        triggerAdditional = true;
+      }
+      break;
+    case LOG_TYPES.SYSTEM_SUCCESS:
+      if (logLevels.SYSTEM_SUCCESS) {
+        console.log(`%c${msg}`, colors[LOG_TYPES.SYSTEM_SUCCESS]);
         triggerAdditional = true;
       }
       break;
