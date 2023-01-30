@@ -8,14 +8,10 @@ import { $LOG, LOG_TYPES } from "../helpers";
 export default async function (context: ExtensionContext) {
   $LOG("Initialize Extension", LOG_TYPES.SYSTEM);
 
-  if (false) {
-    $LOG("TEST SYSTEM", LOG_TYPES.SYSTEM);
-    $LOG("TEST WARN", LOG_TYPES.SYSTEM_WARN);
-    $LOG("TEST ERROR", LOG_TYPES.SYSTEM_ERROR);
-    $LOG("TEST SUCCESS", LOG_TYPES.SYSTEM_SUCCESS);
-  }
-
   initializeMode();
+
+  await resetExcludeList();
+  await initializeExcludeList();
 
   // After initializing the mode...
   // - reset excluded files list

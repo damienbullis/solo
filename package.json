@@ -53,8 +53,11 @@
           "scope": "application"
         },
         "solo.initialExclude": {
-          "type": "object",
-          "default": {},
+          "type": [
+            "object",
+            "null"
+          ],
+          "default": null,
           "description": "List of files that were already excluded when the extension was activated",
           "title": "User's initial excluded files",
           "scope": "application"
