@@ -8,17 +8,17 @@ export const LOG_TYPES = {
 } as const;
 
 const colors = {
-  [LOG_TYPES.INFO]: "color: #B2B2B2",
-  [LOG_TYPES.STORE]: "color: #FF0032",
+  [LOG_TYPES.INFO]: "color: #FFF9F9",
+  [LOG_TYPES.STORE]: "color: #D9ACF5",
   [LOG_TYPES.SYSTEM]: "color: #00ABB3",
   [LOG_TYPES.SYSTEM_WARN]: "color: #FD841F",
-  [LOG_TYPES.SYSTEM_ERROR]: "color: #CD0404",
+  [LOG_TYPES.SYSTEM_ERROR]: "color: #FF0032",
   [LOG_TYPES.SYSTEM_SUCCESS]: "color: #03C988",
 };
 
 const logLevels = {
   INFO: true,
-  STORE: true,
+  STORE: false,
   SYSTEM: true,
   SYSTEM_WARN: true,
   SYSTEM_ERROR: true,

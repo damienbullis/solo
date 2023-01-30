@@ -9,7 +9,7 @@ import { $LOG, LOG_TYPES, processFiles } from "../helpers";
 import store from "../store";
 
 export default (context: ExtensionContext) => {
-  $LOG("Build Solo Commands", LOG_TYPES.SYSTEM);
+  $LOG("Build Solo Commands Start", LOG_TYPES.SYSTEM);
   const { subscriptions } = context;
   subscriptions.push(
     commands.registerCommand("solo.solo.add", (...args) => {
@@ -43,14 +43,15 @@ export default (context: ExtensionContext) => {
         .getConfiguration("solo")
         .get<string[]>("solodFiles");
 
-      $LOG("solo update command", LOG_TYPES.SYSTEM_WARN, {
+      $LOG("solo update command", LOG_TYPES.INFO, {
         solodFiles,
       });
       if (!solodFiles) {
         $LOG("nothing to update", LOG_TYPES.SYSTEM_WARN);
         return;
       }
-      // processFiles(solodFiles);
+      processFiles(solodFiles);
     })
   );
+  $LOG("Build Solo Commands End", LOG_TYPES.SYSTEM_SUCCESS);
 };

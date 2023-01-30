@@ -25,5 +25,7 @@ export default function () {
   }
   // set context for soloMode to allow for conditional Commands, Menus, and File Explorer decorations
   commands.executeCommand("setContext", "solo.soloMode", v);
-  $LOG("Initialize Solo Mode Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  $LOG("Initialize Solo Mode Complete", LOG_TYPES.SYSTEM_SUCCESS, {
+    soloMode: v,
+  });
 }
