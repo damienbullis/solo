@@ -76,6 +76,10 @@
         "icon": "$(eye-closed)"
       },
       {
+        "command": "solo.solo.update",
+        "title": "RELEASE"
+      },
+      {
         "command": "solo.solo.add",
         "title": "SOLO"
       },

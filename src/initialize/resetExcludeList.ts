@@ -11,11 +11,13 @@ export default async function resetExcludeList() {
   // before we proceed with the process.
 
   // Check if we have a previous exclude list
-  const checkInitialExclude = workspace
+  const currentInitialExclude = workspace
     .getConfiguration("solo")
-    .get<ExcludeListType>("initialExclude");
+    .inspect<ExcludeListType>("initialExclude");
 
-  if (checkInitialExclude === null) {
+  const { globalValue } = currentInitialExclude || {};
+
+  if (globalValue === null) {
     // If we don't have a previous exclude list
     $LOG("no exclude list to reset");
   } else {
@@ -25,7 +27,7 @@ export default async function resetExcludeList() {
     // then we reset the exclude list to the previous exclude list
     await workspace
       .getConfiguration("files")
-      .update("exclude", checkInitialExclude, ConfigurationTarget.Global);
+      .update("exclude", globalValue, ConfigurationTarget.Global);
 
     // and we remove the previous exclude list
     await workspace

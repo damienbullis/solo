@@ -16,27 +16,27 @@ export default ({ subscriptions }: ExtensionContext) => {
   // Register Mode Commands
 
   subscriptions.push(
-    commands.registerCommand("solo.mode.enable", () => {
+    commands.registerCommand("solo.mode.enable", async () => {
       // Set the solo mode to true
 
       soloConfig.update("soloMode", true, ConfigurationTarget.Global);
       commands.executeCommand("setContext", "solo.soloMode", true);
 
       // Set the exclude list to be empty
-      filesConfig.update("exclude", {}, ConfigurationTarget.Global);
+      await filesConfig.update("exclude", {}, ConfigurationTarget.Global);
 
-      $LOG("mode enabled", LOG_TYPES.SYSTEM_SUCCESS, { excludeList: {} });
+      $LOG("mode enabled", LOG_TYPES.SYSTEM_SUCCESS);
     }),
-    commands.registerCommand("solo.mode.disable", () => {
+    commands.registerCommand("solo.mode.disable", async () => {
       // Set the solo mode to false
 
-      soloConfig.update("soloMode", false, ConfigurationTarget.Global);
+      await soloConfig.update("soloMode", false, ConfigurationTarget.Global);
       commands.executeCommand("setContext", "solo.soloMode", false);
 
       // Trigger the update command to reset the exclude list
-      commands.executeCommand("solo.mode.update");
+      commands.executeCommand("solo.solo.update");
 
-      $LOG("mode disabled", LOG_TYPES.SYSTEM_SUCCESS, {});
+      $LOG("mode disabled", LOG_TYPES.SYSTEM_SUCCESS);
     })
   );
   $LOG("Build Mode Commands Complete", LOG_TYPES.SYSTEM_SUCCESS);
