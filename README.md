@@ -1,3 +1,5 @@
+<img src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
+
 # SOLO
 
 SOLO is a `explorer` extension for reducing file clutter and let you focus on the files you want to see.
