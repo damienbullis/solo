@@ -7,7 +7,7 @@ export default async function () {
   const exclude = inspectConfig("files.exclude");
 
   if (exclude === null) {
-    $LOG("No exclude list found", LOG_TYPES.SYSTEM_SUCCESS); // Early return
+    $LOG("No exclude list found", LOG_TYPES.SYSTEM_SUCCESS, { exclude }); // Early return
     return Promise.resolve();
   }
 

@@ -11,7 +11,7 @@ export async function activate(context: ExtensionContext) {
 
   // Execxute the initial update command, which will process the solod files
   // and update the exclude list
-  commands.executeCommand("solo.solo.update");
+  // commands.executeCommand("solo.solo.update");
 }
 
 export function deactivate() {}

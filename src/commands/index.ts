@@ -10,7 +10,6 @@ export default function buildCommands(context: ExtensionContext) {
   buildModeCommands(context);
   buildSoloCommands(context);
 
-  //#region Other Commands
   $LOG("Build Commands Complete", LOG_TYPES.SYSTEM_SUCCESS);
 
   // TODO: Add commands for:
@@ -22,6 +21,4 @@ export default function buildCommands(context: ExtensionContext) {
   //   commands.registerCommand("solo.profile.select", () => {})
   // );
   // _commands.push(commands.registerCommand("solo.profile.save", () => {}));
-
-  //#endregion
 }

@@ -1,36 +1,25 @@
-import {
-  commands,
-  ExtensionContext,
-  workspace,
-  ConfigurationTarget,
-} from "vscode";
+import { commands, ExtensionContext } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
+import { updateConfig } from "../helpers/inspectConfig";
 
 export default ({ subscriptions }: ExtensionContext) => {
   $LOG("Build Mode Commands", LOG_TYPES.SYSTEM);
 
-  // Check Global Config for Solo Mode and File Excludes
-  const soloConfig = workspace.getConfiguration("solo");
-  const filesConfig = workspace.getConfiguration("files");
-
   // Register Mode Commands
-
   subscriptions.push(
     commands.registerCommand("solo.mode.enable", async () => {
       // Set the solo mode to true
-
-      soloConfig.update("soloMode", true, ConfigurationTarget.Global);
+      updateConfig("solo.soloMode", true);
       commands.executeCommand("setContext", "solo.soloMode", true);
 
       // Set the exclude list to be empty
-      await filesConfig.update("exclude", {}, ConfigurationTarget.Global);
+      updateConfig("files.exclude", {});
 
       $LOG("mode enabled", LOG_TYPES.SYSTEM_SUCCESS);
     }),
     commands.registerCommand("solo.mode.disable", async () => {
       // Set the solo mode to false
-
-      await soloConfig.update("soloMode", false, ConfigurationTarget.Global);
+      updateConfig("solo.soloMode", false);
       commands.executeCommand("setContext", "solo.soloMode", false);
 
       // Trigger the update command to reset the exclude list

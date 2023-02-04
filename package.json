@@ -46,8 +46,8 @@
           "scope": "application"
         },
         "solo.solodFiles": {
-          "type": "object",
-          "default": {},
+          "type": "array",
+          "default": [],
           "description": "Keys are paths to files that are solo'd",
           "title": "SOLO'd files",
           "scope": "application"

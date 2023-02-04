@@ -15,17 +15,17 @@ export default async function (context: ExtensionContext) {
   // files.exclude --> initialExclude
   await initialExcludeList();
 
-  initializeSoloList();
+  // initializeSoloList();
 
   // check all the workspaces that are open
-  const workspaceFolders = workspace.workspaceFolders;
-  if (workspaceFolders === undefined) {
-    $LOG("No workspace folders found", LOG_TYPES.SYSTEM_ERROR);
-  } else {
-    $LOG("Workspace Folders Found", LOG_TYPES.SYSTEM_WARN, {
-      workspaceFolders,
-    });
-  }
+  // const workspaceFolders = workspace.workspaceFolders;
+  // if (workspaceFolders === undefined) {
+  //   $LOG("No workspace folders found", LOG_TYPES.SYSTEM_ERROR);
+  // } else {
+  //   $LOG("Workspace Folders Found", LOG_TYPES.SYSTEM_WARN, {
+  //     workspaceFolders,
+  //   });
+  // }
 
   $LOG("Initialize Extension Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

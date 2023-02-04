@@ -1,4 +1,3 @@
-import { utils } from "mocha";
 import { ConfigurationTarget, workspace } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
 
@@ -8,9 +7,9 @@ const { getConfiguration } = workspace;
 
 type _excludeType = Record<string, boolean>;
 
-type FilesExcludeType = _excludeType;
+type FilesExcludeType = _excludeType | undefined;
 type SoloModeType = boolean;
-type SoloSolodFilesType = _excludeType;
+type SoloSolodFilesType = string[];
 type SoloInitialExcludeType = _excludeType | false;
 
 type FirstKey = "solo" | "files";
@@ -70,7 +69,7 @@ export function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
       value,
     });
   } catch (error) {
-    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
+    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.SYSTEM_ERROR, {
       config,
       prop,
       value,
