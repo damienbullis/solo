@@ -10,6 +10,8 @@ export default async function resetExcludeList() {
   // if we do, then we reset the exclude list to the previous exclude list
   // before we proceed with the process.
 
+  // REFACTOR: to use the new inspectConfig & updateConfig helpers
+
   // Check if we have a previous exclude list
   const currentInitialExclude = workspace
     .getConfiguration("solo")
