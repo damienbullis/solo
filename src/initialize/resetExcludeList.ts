@@ -1,43 +1,23 @@
-import { ConfigurationTarget, workspace } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
+import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
 
-type ExcludeListType = { [key: string]: boolean } | null;
+export default async function () {
+  $LOG("Initialize Reset Exclude List", LOG_TYPES.SYSTEM);
 
-export default async function resetExcludeList() {
-  $LOG("Reset Exclude List", LOG_TYPES.SYSTEM);
-  // This is a bit of a work-around to reset the exclude list
-  // on start if check if we have a previous exclude list
-  // if we do, then we reset the exclude list to the previous exclude list
-  // before we proceed with the process.
+  const initialExclude = inspectConfig("solo.initialExclude");
 
-  // REFACTOR: to use the new inspectConfig & updateConfig helpers
+  if (initialExclude === null) {
+    $LOG("failed to retrieve initial exclude", LOG_TYPES.SYSTEM_ERROR); // Early return
+    return Promise.resolve();
+  }
 
-  // Check if we have a previous exclude list
-  const currentInitialExclude = workspace
-    .getConfiguration("solo")
-    .inspect<ExcludeListType>("initialExclude");
-
-  const { globalValue } = currentInitialExclude || {};
-
-  if (globalValue === null) {
-    // If we don't have a previous exclude list
-    $LOG("no exclude list to reset");
+  if (initialExclude === false) {
+    $LOG("initial exclude list is empty, nothing to reset");
   } else {
-    // If we do have a previous exclude list
-    $LOG("resetting exclude list");
-
-    // then we reset the exclude list to the previous exclude list
-    await workspace
-      .getConfiguration("files")
-      .update("exclude", globalValue, ConfigurationTarget.Global);
-
-    // and we remove the previous exclude list
-    await workspace
-      .getConfiguration("solo")
-      .update("initialExclude", null, ConfigurationTarget.Global);
+    updateConfig("files.exclude", initialExclude);
+    updateConfig("solo.initialExclude", false);
   }
 
   $LOG("Reset Exclude List Complete", LOG_TYPES.SYSTEM_SUCCESS);
-
   return Promise.resolve();
 }

@@ -8,7 +8,7 @@ const { getConfiguration } = workspace;
 export type FilesExcludeType = { [key: string]: boolean };
 export type SoloModeType = boolean;
 export type SoloSolodFilesType = string[];
-export type SoloInitialExcludeType = { [key: string]: boolean } | null;
+export type SoloInitialExcludeType = { [key: string]: boolean } | false;
 export type SoloTypes =
   | SoloModeType
   | SoloSolodFilesType
@@ -51,6 +51,10 @@ export function inspectConfig<K extends FirstKey, S extends SecondKey<K>>(
     globalValue,
     defaultValue,
   });
+  if (key === "files.exclude") {
+    // Dont return default values for files.exclude
+    return globalValue || null;
+  }
   return globalValue ?? defaultValue ?? null;
 }
 

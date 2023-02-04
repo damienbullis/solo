@@ -55,9 +55,9 @@
         "solo.initialExclude": {
           "type": [
             "object",
-            "null"
+            "false"
           ],
-          "default": null,
+          "default": false,
           "description": "List of files that were already excluded when the extension was activated",
           "title": "User's initial excluded files",
           "scope": "application"

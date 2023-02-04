@@ -1,5 +1,5 @@
 import initializeMode from "./mode";
-import initializeExcludeList from "./excludeList";
+import initialExcludeList from "./excludeList";
 import initializeSoloList from "./soloList";
 import resetExcludeList from "./resetExcludeList";
 import { ExtensionContext, workspace } from "vscode";
@@ -10,15 +10,20 @@ export default async function (context: ExtensionContext) {
 
   initializeMode();
 
+  // initialExclude --> files.exclude
   await resetExcludeList();
-  await initializeExcludeList();
+  // files.exclude --> initialExclude
+  await initialExcludeList();
 
-  // After initializing the mode...
-  // - reset excluded files list
-  //   - to initial excluded files list (if any)
-  //   - or to empty list
-
-  // Get the workspace uri
+  // check all the workspaces that are open
+  const workspaceFolders = workspace.workspaceFolders;
+  if (workspaceFolders === undefined) {
+    $LOG("No workspace folders found", LOG_TYPES.SYSTEM_ERROR);
+  } else {
+    $LOG("Workspace Folders Found", LOG_TYPES.SYSTEM_WARN, {
+      workspaceFolders,
+    });
+  }
 
   // check if the workspace uri is set in the global settings.json
   //   - if so, dont change the workspace uri
