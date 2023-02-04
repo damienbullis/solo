@@ -18,7 +18,7 @@ const colors = {
 
 const logLevels = {
   INFO: true,
-  STORE: false,
+  STORE: true,
   SYSTEM: true,
   SYSTEM_WARN: true,
   SYSTEM_ERROR: true,

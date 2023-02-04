@@ -1,3 +1,4 @@
+import { utils } from "mocha";
 import { ConfigurationTarget, workspace } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
 
@@ -5,15 +6,12 @@ const { getConfiguration } = workspace;
 
 //#region Types
 
-export type FilesExcludeType = { [key: string]: boolean };
-export type SoloModeType = boolean;
-export type SoloSolodFilesType = string[];
-export type SoloInitialExcludeType = { [key: string]: boolean } | false;
-export type SoloTypes =
-  | SoloModeType
-  | SoloSolodFilesType
-  | SoloInitialExcludeType
-  | FilesExcludeType;
+type _excludeType = Record<string, boolean>;
+
+type FilesExcludeType = _excludeType;
+type SoloModeType = boolean;
+type SoloSolodFilesType = _excludeType;
+type SoloInitialExcludeType = _excludeType | false;
 
 type FirstKey = "solo" | "files";
 type SecondKey<FK = string> = FK extends "solo"
@@ -45,7 +43,7 @@ export function inspectConfig<K extends FirstKey, S extends SecondKey<K>>(
   const configObject = getConfiguration(config);
   const { globalValue, defaultValue } =
     configObject.inspect<getType<K, S>>(prop) || {};
-  $LOG("inspectConfig", LOG_TYPES.SYSTEM_SUCCESS, {
+  $LOG("inspectConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
     config,
     prop,
     globalValue,
@@ -66,13 +64,13 @@ export function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
   const configObject = getConfiguration(config);
   try {
     configObject.update(prop, value, ConfigurationTarget.Global);
-    $LOG("updateConfig", LOG_TYPES.SYSTEM_SUCCESS, {
+    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
       config,
       prop,
       value,
     });
   } catch (error) {
-    $LOG("updateConfig", LOG_TYPES.SYSTEM_ERROR, {
+    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
       config,
       prop,
       value,

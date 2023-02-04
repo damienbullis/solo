@@ -48,7 +48,7 @@
         "solo.solodFiles": {
           "type": "object",
           "default": {},
-          "description": "Keys are workspace folders, values are arrays of files that are currently solo'd for that workspace folder",
+          "description": "Keys are paths to files that are solo'd",
           "title": "SOLO'd files",
           "scope": "application"
         },

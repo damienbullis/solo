@@ -1,17 +1,20 @@
-import { commands, ConfigurationTarget, workspace } from "vscode";
+import { commands } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
-import store from "../store";
+import { inspectConfig } from "../helpers/inspectConfig";
 
 export default function () {
   $LOG("Initialize Solo List", LOG_TYPES.SYSTEM);
-  const soloConfig = workspace.getConfiguration("solo");
-  const { workspaceValue } = soloConfig.inspect<string[]>("solodFiles") || {};
 
-  if (workspaceValue) {
-    store.set("initialSolo", workspaceValue);
-    commands.executeCommand("setContext", "solo.solodFiles", workspaceValue);
-  } else {
-    soloConfig.update("solodFiles", [], ConfigurationTarget.Workspace);
-    commands.executeCommand("setContext", "solo.solodFiles", []);
+  const solodFiles = inspectConfig("solo.solodFiles");
+
+  if (solodFiles === null) {
+    $LOG("Failed to retrieve solodFiles", LOG_TYPES.SYSTEM_ERROR);
+    return;
   }
+
+  // Might need to a check here to see if the workspace is the previous workspace??
+  $LOG("set context for solodFiles", LOG_TYPES.SYSTEM_WARN, { solodFiles });
+  commands.executeCommand("setContext", "solo.solodFiles", solodFiles);
+
+  $LOG("Initialize Solo List Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

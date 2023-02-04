@@ -15,6 +15,8 @@ export default async function (context: ExtensionContext) {
   // files.exclude --> initialExclude
   await initialExcludeList();
 
+  initializeSoloList();
+
   // check all the workspaces that are open
   const workspaceFolders = workspace.workspaceFolders;
   if (workspaceFolders === undefined) {
@@ -25,17 +27,5 @@ export default async function (context: ExtensionContext) {
     });
   }
 
-  // check if the workspace uri is set in the global settings.json
-  //   - if so, dont change the workspace uri
-  //   - if not, set the workspace uri to the current workspace uri
-  // finally check for solod files for that workspace uri in global settings.json
-  //   - this allows us to maintain continuous solod files across workspaces and sessions
-
-  // At this point we have the workspace uri and the solod files for that workspace uri
-  // We can now initialize the exclude list.
-
-  // await resetExcludeList();
-  // await initializeExcludeList();
-  // initializeSoloList();
   $LOG("Initialize Extension Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }
