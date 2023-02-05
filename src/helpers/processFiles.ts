@@ -1,47 +1,62 @@
-import { Uri, workspace } from "vscode";
+import * as vs from "vscode";
 import { $LOG, LOG_TYPES } from ".";
 import { inspectConfig, updateConfig } from "./inspectConfig";
+
+const { workspace } = vs;
 
 export default async function () {
   $LOG("Processing Solod Files", LOG_TYPES.SYSTEM);
 
-  // First check solodFiles
-  // Second check if soloMode is enabled
-  // If enabled then we need to update the exclude list
-  // to be the opposite of the solodFiles list
-
   const solodFiles = inspectConfig("solo.solodFiles");
-
-  if (solodFiles === null) {
-    $LOG("Failed to retrieve solodFiles", LOG_TYPES.SYSTEM_ERROR);
-    return;
-  }
-
   const soloMode = inspectConfig("solo.soloMode");
+  const initialExclude = inspectConfig("solo.initialExclude");
 
-  if (soloMode === null) {
-    $LOG("Failed to retrieve soloMode", LOG_TYPES.SYSTEM_ERROR);
-    return;
-  }
+  const excludeList = initialExclude || {};
 
   if (soloMode === false) {
     $LOG("Solo Mode is disabled");
-    const initialExclude = inspectConfig("solo.initialExclude");
 
-    if (initialExclude === null) {
-      $LOG("Failed to retrieve initialExclude", LOG_TYPES.SYSTEM_ERROR);
-      return;
-    }
-    updateConfig("files.exclude", initialExclude || undefined);
+    updateConfig("files.exclude", excludeList);
   } else {
-    $LOG("Solo Mode is disabled");
-    updateConfig("files.exclude", {
-      "*.*": true,
-    });
+    $LOG("Solo Mode is enabled");
+
+    if (solodFiles !== undefined) {
+      const exclude: Record<string, boolean> = { ...excludeList };
+      const workspaceFolders = workspace.workspaceFolders;
+
+      if (workspaceFolders !== undefined) {
+        for (const folder of workspaceFolders) {
+          const folderPath = folder.uri.fsPath;
+
+          const files = await workspace.fs.readDirectory(folder.uri);
+
+          $LOG("---->", "SYSTEM_WARN", { folderPath, files, solodFiles });
+          if (solodFiles.length > 0) {
+            for (const file of files) {
+              const [fileName, fileType] = file;
+
+              if (fileType === 1) {
+                // Directory
+                if (!solodFiles.includes(fileName)) {
+                  exclude[fileName] = true;
+                }
+              } else {
+                // File
+                if (!solodFiles.includes(fileName)) {
+                  exclude[fileName] = true;
+                }
+              }
+            }
+          } else {
+            exclude["**"] = true;
+          }
+        }
+      }
+
+      $LOG("files.exclude", "SYSTEM_WARN", exclude);
+      updateConfig("files.exclude", exclude);
+    }
   }
 
-  const excludeList = solodFiles.map((file: string) => {
-    return `!${file}`;
-  });
-  $LOG("Exclude List", LOG_TYPES.SYSTEM_WARN, { excludeList });
+  $LOG("Processing Solod Files Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

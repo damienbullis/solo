@@ -1,23 +1,22 @@
 import { $LOG, LOG_TYPES } from "../helpers";
 import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
 
-export default async function () {
+export default function () {
   $LOG("Initialize Reset Exclude List", LOG_TYPES.SYSTEM);
-
+  // initialExclude --> files.exclude
   const initialExclude = inspectConfig("solo.initialExclude");
+  const filesExclude = inspectConfig("files.exclude");
 
-  if (initialExclude === null) {
-    $LOG("failed to retrieve initial exclude", LOG_TYPES.SYSTEM_ERROR); // Early return
-    return Promise.resolve();
+  $LOG("Reset Exclude List", LOG_TYPES.SYSTEM_WARN, { initialExclude });
+  // if we have an initialExclude, we need to reset the files.exclude
+  if (initialExclude !== false) {
+    return updateConfig("files.exclude", initialExclude);
   }
 
-  if (initialExclude === false) {
-    $LOG("initial exclude list is empty, nothing to reset");
-  } else {
-    updateConfig("files.exclude", initialExclude);
-    updateConfig("solo.initialExclude", false);
+  if (filesExclude !== undefined) {
+    // if we don't have an initialExclude, we need to reset the files.exclude
+    return updateConfig("solo.initialExclude", filesExclude);
   }
 
   $LOG("Reset Exclude List Complete", LOG_TYPES.SYSTEM_SUCCESS);
-  return Promise.resolve();
 }

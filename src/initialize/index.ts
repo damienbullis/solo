@@ -5,17 +5,14 @@ import resetExcludeList from "./resetExcludeList";
 import { ExtensionContext, workspace } from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
 
-export default async function (context: ExtensionContext) {
+export default function (context: ExtensionContext) {
   $LOG("Initialize Extension", LOG_TYPES.SYSTEM);
 
   initializeMode();
 
-  // initialExclude --> files.exclude
-  await resetExcludeList();
-  // files.exclude --> initialExclude
-  await initialExcludeList();
-
-  // initializeSoloList();
+  resetExcludeList();
+  // await initialExcludeList();
+  initializeSoloList();
 
   // check all the workspaces that are open
   // const workspaceFolders = workspace.workspaceFolders;

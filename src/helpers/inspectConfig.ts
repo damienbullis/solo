@@ -1,16 +1,16 @@
-import { ConfigurationTarget, workspace } from "vscode";
+import * as vs from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
+
+const { workspace } = vs;
 
 const { getConfiguration } = workspace;
 
 //#region Types
 
-type _excludeType = Record<string, boolean>;
-
-type FilesExcludeType = _excludeType | undefined;
+type FilesExcludeType = Record<string, boolean> | undefined;
 type SoloModeType = boolean;
 type SoloSolodFilesType = string[];
-type SoloInitialExcludeType = _excludeType | false;
+type SoloInitialExcludeType = Record<string, boolean> | false;
 
 type FirstKey = "solo" | "files";
 type SecondKey<FK = string> = FK extends "solo"
@@ -50,19 +50,19 @@ export function inspectConfig<K extends FirstKey, S extends SecondKey<K>>(
   });
   if (key === "files.exclude") {
     // Dont return default values for files.exclude
-    return globalValue || null;
+    return globalValue as getType<K, S>;
   }
-  return globalValue ?? defaultValue ?? null;
+  return (globalValue ?? defaultValue) as getType<K, S>;
 }
 
-export function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
+export async function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
   key: `${K}.${S}`,
   value: getType<K, S>
 ) {
   const [config, prop] = key.split(".");
   const configObject = getConfiguration(config);
   try {
-    configObject.update(prop, value, ConfigurationTarget.Global);
+    await configObject.update(prop, value, vs.ConfigurationTarget.Global);
     $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
       config,
       prop,

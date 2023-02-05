@@ -1,19 +1,22 @@
-import { commands, ExtensionContext } from "vscode";
+import * as vs from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
-import { updateConfig } from "../helpers/inspectConfig";
+import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
 
-export default ({ subscriptions }: ExtensionContext) => {
+const { commands } = vs;
+
+export default ({ subscriptions }: vs.ExtensionContext) => {
   $LOG("Build Mode Commands", LOG_TYPES.SYSTEM);
 
   // Register Mode Commands
   subscriptions.push(
     commands.registerCommand("solo.mode.enable", async () => {
+      const initExclude = inspectConfig("solo.initialExclude");
       // Set the solo mode to true
       updateConfig("solo.soloMode", true);
       commands.executeCommand("setContext", "solo.soloMode", true);
 
       // Set the exclude list to be empty
-      updateConfig("files.exclude", {});
+      updateConfig("files.exclude", initExclude || {});
 
       $LOG("mode enabled", LOG_TYPES.SYSTEM_SUCCESS);
     }),

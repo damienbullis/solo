@@ -1,6 +1,8 @@
-import { workspace, ConfigurationTarget, commands } from "vscode";
+import * as vs from "vscode";
 import { $LOG, LOG_TYPES } from "../helpers";
-import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
+import { inspectConfig } from "../helpers/inspectConfig";
+
+const { commands } = vs;
 
 /**
  * - #### `ON` (soloMode = true)

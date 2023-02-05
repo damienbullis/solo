@@ -66,14 +66,14 @@
     },
     "commands": [
       {
-        "command": "solo.mode.disable",
+        "command": "solo.mode.enable",
         "title": "Enable SoloMode",
-        "icon": "$(eye)"
+        "icon": "$(eye-closed)"
       },
       {
-        "command": "solo.mode.enable",
+        "command": "solo.mode.disable",
         "title": "Disable SoloMode",
-        "icon": "$(eye-closed)"
+        "icon": "$(eye)"
       },
       {
         "command": "solo.solo.update",
@@ -122,12 +122,12 @@
       "explorer/context": [
         {
           "command": "solo.solo.add",
-          "when": "solo.soloMode == true && resourcePath not in solo.solodFiles",
+          "when": "solo.soloMode == true && resourceFilename not in solo.solodFiles",
           "group": "navigation"
         },
         {
           "command": "solo.solo.remove",
-          "when": "solo.soloMode == true && resourcePath in solo.solodFiles",
+          "when": "solo.soloMode == true && resourceFilename in solo.solodFiles",
           "group": "navigation"
         }
       ]
