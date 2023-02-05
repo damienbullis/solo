@@ -16,7 +16,7 @@ export default async function () {
   if (soloMode === false) {
     $LOG("Solo Mode is disabled");
 
-    updateConfig("files.exclude", excludeList);
+    await updateConfig("files.exclude", excludeList);
   } else {
     $LOG("Solo Mode is enabled");
 
@@ -54,7 +54,7 @@ export default async function () {
       }
 
       $LOG("files.exclude", "SYSTEM_WARN", exclude);
-      updateConfig("files.exclude", exclude);
+      await updateConfig("files.exclude", exclude);
     }
   }
 

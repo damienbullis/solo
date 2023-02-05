@@ -10,26 +10,26 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
   // Register Mode Commands
   subscriptions.push(
     commands.registerCommand("solo.mode.enable", async () => {
-      const initExclude = inspectConfig("solo.initialExclude");
       // Set the solo mode to true
-      updateConfig("solo.soloMode", true);
-      commands.executeCommand("setContext", "solo.soloMode", true);
-
-      // Set the exclude list to be empty
-      updateConfig("files.exclude", initExclude || {});
-
-      $LOG("mode enabled", LOG_TYPES.SYSTEM_SUCCESS);
-    }),
-    commands.registerCommand("solo.mode.disable", async () => {
-      // Set the solo mode to false
-      updateConfig("solo.soloMode", false);
-      commands.executeCommand("setContext", "solo.soloMode", false);
+      await updateConfig("solo.soloMode", true);
+      await commands.executeCommand("setContext", "solo.soloMode", true);
 
       // Trigger the update command to reset the exclude list
-      commands.executeCommand("solo.solo.update");
+      await commands.executeCommand("solo.solo.update");
 
-      $LOG("mode disabled", LOG_TYPES.SYSTEM_SUCCESS);
+      $LOG("AFTER UPDATE (mode === true)", LOG_TYPES.SYSTEM_SUCCESS);
+    }),
+    commands.registerCommand("solo.mode.disable", async () => {
+      const initExclude = inspectConfig("solo.initialExclude");
+      // Set the solo mode to false
+      await updateConfig("solo.soloMode", false);
+      await commands.executeCommand("setContext", "solo.soloMode", false);
+
+      // Set the exclude list to be empty
+      await updateConfig("files.exclude", initExclude || {});
+
+      $LOG("AFTER UPDATE (mode === false)", LOG_TYPES.SYSTEM_SUCCESS);
     })
   );
-  $LOG("Build Mode Commands Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  $LOG("Build Mode Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
 };

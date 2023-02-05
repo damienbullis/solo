@@ -22,15 +22,18 @@ export default (context: ExtensionContext) => {
       $LOG("solo.add", LOG_TYPES.INFO, { args, rest });
     }),
     commands.registerCommand("solo.solo.remove", (...args) => {
+      // check if multiple items have been selected
       const [, ...rest] = args;
-
+      // if so, remove all of them from the solo list
+      // if not, remove the current file from the solo list
       $LOG("solo.remove", LOG_TYPES.INFO, { args, rest });
     }),
     commands.registerCommand("solo.solo.reset", () => {
+      // reset the solo list to be empty
       $LOG("solo.reset");
     }),
 
     commands.registerCommand("solo.solo.update", processFiles)
   );
-  $LOG("Build Solo Commands End", LOG_TYPES.SYSTEM_SUCCESS);
+  $LOG("Build Solo Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
 };

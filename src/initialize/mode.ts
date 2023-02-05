@@ -10,15 +10,15 @@ const { commands } = vs;
  * - #### `OFF` (soloMode = false)
  *    - This will show all files (in the current workspace)
  */
-export default function () {
+export default async function () {
   $LOG("Initialize Solo Mode", LOG_TYPES.SYSTEM);
 
   // Check if we have a previous value of soloMode
-  const soloMode = inspectConfig("solo.soloMode") ?? false;
+  const soloMode = inspectConfig("solo.soloMode");
 
   // Set context for soloMode to allow for conditional Commands, Menus, and File Explorer decorations
-  commands.executeCommand("setContext", "solo.soloMode", soloMode);
-  $LOG(`setContext with ${soloMode}`, LOG_TYPES.SYSTEM_SUCCESS);
+  await commands.executeCommand("setContext", "solo.soloMode", soloMode);
+  $LOG(`setContext --> ${soloMode}`, LOG_TYPES.SYSTEM_SUCCESS);
 
-  $LOG("Initialize Solo Mode Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  $LOG("Initialize Solo Mode - Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }
