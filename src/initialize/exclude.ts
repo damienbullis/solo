@@ -12,6 +12,7 @@ export default async function () {
     $LOG("Exclude being set to initialExclude", LOG_TYPES.SYSTEM_WARN, {
       setTo: initialExclude,
     });
+    $LOG("InitializeReset Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
     return await updateConfig("files.exclude", initialExclude);
   }
 
@@ -20,8 +21,7 @@ export default async function () {
     $LOG("InitialExclude being set to exclude", LOG_TYPES.SYSTEM_WARN, {
       setTo: exclude,
     });
+    $LOG("InitializeReset Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
     return await updateConfig("solo.initialExclude", exclude);
   }
-
-  $LOG("InitializeReset Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

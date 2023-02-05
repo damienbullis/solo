@@ -17,7 +17,10 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       // Trigger the update command to reset the exclude list
       await commands.executeCommand("solo.solo.update");
 
-      $LOG("AFTER UPDATE (mode === true)", LOG_TYPES.SYSTEM_SUCCESS);
+      $LOG(
+        "Setting Mode -> TRUE (after solo.update)",
+        LOG_TYPES.SYSTEM_SUCCESS
+      );
     }),
     commands.registerCommand("solo.mode.disable", async () => {
       const initExclude = inspectConfig("solo.initialExclude");
@@ -28,7 +31,10 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       // Set the exclude list to be empty
       await updateConfig("files.exclude", initExclude || {});
 
-      $LOG("AFTER UPDATE (mode === false)", LOG_TYPES.SYSTEM_SUCCESS);
+      $LOG(
+        "Setting Mode -> FALSE (after solo.update)",
+        LOG_TYPES.SYSTEM_SUCCESS
+      );
     })
   );
   $LOG("Build Mode Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
