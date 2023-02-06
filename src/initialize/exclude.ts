@@ -1,8 +1,7 @@
-import { $LOG, LOG_TYPES } from "../helpers";
-import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
+import { $LOG, LOG_TYPES, inspectConfig, updateConfig } from "../helpers";
 
 export default async function () {
-  $LOG("Initialize Reset Exclude", LOG_TYPES.SYSTEM);
+  $LOG("Initialize Exclude", LOG_TYPES.SYSTEM);
   // initialExclude --> files.exclude
   const initialExclude = inspectConfig("solo.initialExclude");
   const exclude = inspectConfig("files.exclude");
@@ -12,16 +11,15 @@ export default async function () {
     $LOG("Exclude being set to initialExclude", LOG_TYPES.SYSTEM_WARN, {
       setTo: initialExclude,
     });
-    $LOG("InitializeReset Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
-    return await updateConfig("files.exclude", initialExclude);
+    await updateConfig("files.exclude", initialExclude);
+  } else {
+    // if we don't have an initialExclude, we need to reset the files.exclude
+    if (exclude !== undefined) {
+      $LOG("InitialExclude being set to exclude", LOG_TYPES.SYSTEM_WARN, {
+        setTo: exclude,
+      });
+      await updateConfig("solo.initialExclude", exclude);
+    }
   }
-
-  // if we don't have an initialExclude, we need to reset the files.exclude
-  if (exclude !== undefined) {
-    $LOG("InitialExclude being set to exclude", LOG_TYPES.SYSTEM_WARN, {
-      setTo: exclude,
-    });
-    $LOG("InitializeReset Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
-    return await updateConfig("solo.initialExclude", exclude);
-  }
+  $LOG("Initialize Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
 }

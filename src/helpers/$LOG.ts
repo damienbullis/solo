@@ -19,17 +19,17 @@ const colors = {
 const logLevels = {
   INFO: true,
   STORE: false,
-  SYSTEM: true,
+  SYSTEM: false,
   SYSTEM_WARN: true,
   SYSTEM_ERROR: true,
   SYSTEM_SUCCESS: true,
 };
 
-export const $LOG = (
+export function $LOG(
   msg: string,
   type: keyof typeof LOG_TYPES = "INFO",
   ...additional: any[]
-) => {
+) {
   // check the store of the log levels we want to see
   // if the log level is not in the store, then we don't log it
   let triggerAdditional = false;
@@ -76,4 +76,4 @@ export const $LOG = (
     // only show additional if we the log level is in the store (visible)
     console.log(...additional);
   }
-};
+}

@@ -1,39 +1,96 @@
+import * as vs from "vscode";
 import {
-  commands,
-  ConfigurationTarget,
-  ExtensionContext,
-  Uri,
-  workspace,
-} from "vscode";
-import { $LOG, LOG_TYPES, processFiles } from "../helpers";
+  $LOG,
+  inspectConfig,
+  LOG_TYPES,
+  processFiles,
+  updateConfig,
+} from "../helpers";
 
-export default (context: ExtensionContext) => {
+const { commands, workspace, Uri } = vs;
+
+const getPaths = (selected: vs.Uri[]) => {
+  const workspacePath = workspace.workspaceFolders?.[0].uri.fsPath;
+  if (workspacePath === undefined) {
+    $LOG("Error: Workspace path undefined", LOG_TYPES.SYSTEM_ERROR);
+    return [];
+  }
+  const results: string[] = [];
+  for (const _item of selected) {
+    const { path } = Uri.parse(_item.toString());
+    results.push(path.replace(workspacePath + "/", ""));
+  }
+  return results;
+};
+
+export default function (context: vs.ExtensionContext) {
   $LOG("Build Solo Commands", LOG_TYPES.SYSTEM);
   const { subscriptions } = context;
   subscriptions.push(
-    commands.registerCommand("solo.solo.add", (...args) => {
-      // check if multiple items have been selected
-      // if so, add all of them to the solo list
-      // if not, add the current file to the solo list
-      const [, ...rest] = args;
-      // probably also want to check if solo mode is enabled
-      // if it is then we need to update the exclude list as well
+    commands.registerCommand("solo.solo.add", async (...args) => {
+      const soloMode = inspectConfig("solo.soloMode");
+      const solodFiles = inspectConfig("solo.solodFiles");
 
-      $LOG("solo.add", LOG_TYPES.INFO, { args, rest });
+      if (solodFiles.length === 0 && !soloMode) {
+        await commands.executeCommand("solo.mode.enable");
+      }
+
+      const [, ...selected] = args;
+      const results = getPaths(...(selected as [any]));
+      const nextSolodFiles = [...solodFiles, ...results];
+
+      await updateConfig("solo.solodFiles", nextSolodFiles);
+      await commands.executeCommand("solo.solo.update");
+      await commands.executeCommand(
+        "setContext",
+        "solo.solodFiles",
+        nextSolodFiles
+      );
+
+      $LOG("solo.add", LOG_TYPES.INFO, { selected, results });
     }),
-    commands.registerCommand("solo.solo.remove", (...args) => {
-      // check if multiple items have been selected
-      const [, ...rest] = args;
-      // if so, remove all of them from the solo list
-      // if not, remove the current file from the solo list
-      $LOG("solo.remove", LOG_TYPES.INFO, { args, rest });
+    commands.registerCommand("solo.solo.remove", async (...args) => {
+      const solodFiles = inspectConfig("solo.solodFiles");
+      const soloMode = inspectConfig("solo.soloMode");
+
+      const [, ...selected] = args;
+      const results = getPaths(...(selected as [any]));
+      const nextSolodFiles = solodFiles.filter(
+        (file: string) => !results.includes(file)
+      );
+
+      await updateConfig("solo.solodFiles", nextSolodFiles);
+      await commands.executeCommand("solo.solo.update");
+
+      // if (soloMode) {
+      //   const exclude = inspectConfig("files.exclude") || {};
+      //   const nextExclude = nextSolodFiles.reduce((acc, file: string) => {
+      //     acc[file] = true;
+      //     return acc;
+      //   }, exclude);
+
+      //   await updateConfig("files.exclude", nextExclude);
+      //   $LOG("updated exclude", LOG_TYPES.INFO, { nextExclude });
+      // }
+      await commands.executeCommand(
+        "setContext",
+        "solo.solodFiles",
+        nextSolodFiles
+      );
+
+      $LOG("solo.remove - complete", LOG_TYPES.SYSTEM_SUCCESS);
     }),
-    commands.registerCommand("solo.solo.reset", () => {
-      // reset the solo list to be empty
-      $LOG("solo.reset");
+    commands.registerCommand("solo.solo.reset", async () => {
+      await updateConfig("solo.soloMode", false);
+      await updateConfig("solo.solodFiles", []);
+      await updateConfig("files.exclude", undefined);
+      await commands.executeCommand("setContext", "solo.solodFiles", []);
+      await commands.executeCommand("setContext", "solo.solodMode", false);
+
+      $LOG("solo.reset - reseting solo list", LOG_TYPES.SYSTEM_SUCCESS);
     }),
 
     commands.registerCommand("solo.solo.update", processFiles)
   );
   $LOG("Build Solo Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
-};
+}

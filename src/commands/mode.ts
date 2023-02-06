@@ -1,6 +1,5 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES } from "../helpers";
-import { inspectConfig, updateConfig } from "../helpers/inspectConfig";
+import { $LOG, LOG_TYPES, inspectConfig, updateConfig } from "../helpers";
 
 const { commands } = vs;
 
@@ -23,13 +22,12 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       );
     }),
     commands.registerCommand("solo.mode.disable", async () => {
-      const initExclude = inspectConfig("solo.initialExclude");
       // Set the solo mode to false
       await updateConfig("solo.soloMode", false);
       await commands.executeCommand("setContext", "solo.soloMode", false);
 
       // Set the exclude list to be empty
-      await updateConfig("files.exclude", initExclude || {});
+      await updateConfig("files.exclude", {});
 
       $LOG(
         "Setting Mode -> FALSE (after solo.update)",

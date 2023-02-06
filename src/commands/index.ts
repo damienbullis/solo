@@ -1,8 +1,8 @@
 import { ExtensionContext } from "vscode";
 
+import buildModeCommands from "./mode";
 import buildSoloCommands from "./solo";
 // import setProfilesCommands from "./profiles";
-import buildModeCommands from "./mode";
 import { $LOG, LOG_TYPES } from "../helpers";
 
 export default function buildCommands(context: ExtensionContext) {

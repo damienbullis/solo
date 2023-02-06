@@ -1,5 +1,5 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES } from "../helpers";
+import { $LOG, LOG_TYPES } from ".";
 
 const { workspace } = vs;
 

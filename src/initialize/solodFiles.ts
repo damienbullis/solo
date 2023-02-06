@@ -1,6 +1,5 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES } from "../helpers";
-import { inspectConfig } from "../helpers/inspectConfig";
+import { $LOG, inspectConfig, LOG_TYPES } from "../helpers";
 
 const { commands } = vs;
 
