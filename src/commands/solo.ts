@@ -40,18 +40,17 @@ export default function (context: vs.ExtensionContext) {
       const nextSolodFiles = [...solodFiles, ...results];
 
       await updateConfig("solo.solodFiles", nextSolodFiles);
-      await commands.executeCommand("solo.solo.update");
       await commands.executeCommand(
         "setContext",
         "solo.solodFiles",
         nextSolodFiles
       );
+      await commands.executeCommand("solo.solo.update");
 
       $LOG("solo.add", LOG_TYPES.INFO, { selected, results });
     }),
     commands.registerCommand("solo.solo.remove", async (...args) => {
       const solodFiles = inspectConfig("solo.solodFiles");
-      const soloMode = inspectConfig("solo.soloMode");
 
       const [, ...selected] = args;
       const results = getPaths(...(selected as [any]));
@@ -60,23 +59,12 @@ export default function (context: vs.ExtensionContext) {
       );
 
       await updateConfig("solo.solodFiles", nextSolodFiles);
-      await commands.executeCommand("solo.solo.update");
-
-      // if (soloMode) {
-      //   const exclude = inspectConfig("files.exclude") || {};
-      //   const nextExclude = nextSolodFiles.reduce((acc, file: string) => {
-      //     acc[file] = true;
-      //     return acc;
-      //   }, exclude);
-
-      //   await updateConfig("files.exclude", nextExclude);
-      //   $LOG("updated exclude", LOG_TYPES.INFO, { nextExclude });
-      // }
       await commands.executeCommand(
         "setContext",
         "solo.solodFiles",
         nextSolodFiles
       );
+      await commands.executeCommand("solo.solo.update");
 
       $LOG("solo.remove - complete", LOG_TYPES.SYSTEM_SUCCESS);
     }),
