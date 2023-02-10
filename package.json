@@ -129,12 +129,12 @@
       "explorer/context": [
         {
           "command": "solo.solo.add",
-          "when": "solo.soloMode == false && resourceFilename not in solo.solodFiles",
+          "when": "solo.soloMode == false && resourcePath not in solo.solodFiles",
           "group": "navigation"
         },
         {
           "command": "solo.solo.remove",
-          "when": "solo.soloMode == false && resourceFilename in solo.solodFiles",
+          "when": "solo.soloMode == false && resourcePath in solo.solodFiles",
           "group": "navigation"
         }
       ]

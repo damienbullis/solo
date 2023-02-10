@@ -18,7 +18,7 @@ const getPaths = (selected: vs.Uri[]) => {
   const results: string[] = [];
   for (const _item of selected) {
     const { path } = Uri.parse(_item.toString());
-    results.push(path.replace(workspacePath + "/", ""));
+    results.push(path);
   }
   return results;
 };

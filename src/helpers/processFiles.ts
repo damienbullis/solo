@@ -31,21 +31,61 @@ export default async function () {
 
           if (solodFiles.length > 0) {
             exclude = { ...nextExclude };
+            // directories
+            const d = new Set<string>();
+            // files
+            const f = new Set<string>();
+
+            const drill = new Set<string>();
+
+            const solod = new Set<string>(solodFiles);
+
             for (const file of files) {
               const [fileName, fileType] = file;
 
               if (fileType === 1) {
                 // File
-                if (!solodFiles.includes(fileName)) {
-                  exclude[`${fileName}`] = true;
-                }
+                f.add(fileName);
+                // if (!solodFiles.includes(fileName)) {
+                //   exclude[`${fileName}`] = true;
+                // }
               } else {
                 // Directory
-                if (!solodFiles.includes(fileName)) {
-                  exclude[`${fileName}/`] = true;
+                d.add(fileName + "/");
+                // if (!solodFiles.includes(fileName)) {
+                //   exclude[`${fileName}/`] = true;
+                // }
+              }
+            }
+
+            for (const file of solod) {
+              const hasFile = f.has(file);
+              if (hasFile) {
+                $LOG("hasFile:", LOG_TYPES.INFO, { hasFile });
+                exclude[file] = false;
+                f.delete(file);
+                continue;
+              }
+              for (const dir of [...d]) {
+                if (file.includes(dir)) {
+                  exclude[dir] = false;
+                  d.delete(dir);
+
+                  $LOG("file includes dir", LOG_TYPES.INFO, {
+                    file,
+                    dir,
+                    exclude,
+                  });
                 }
               }
             }
+            [...f, ...d].reduce((acc, cur) => {
+              acc[cur] = true;
+              return acc;
+            }, exclude);
+            $LOG("afterwards:", LOG_TYPES.INFO, {
+              exclude,
+            });
           } else {
             exclude["**"] = true;
           }
