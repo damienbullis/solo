@@ -8,7 +8,7 @@
 
 ---
 
-~~You can download the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=damienbullis.solo).~~
+~~You can download the extension from the [Visual Studio Code Marketplace](#).~~
 
 &nbsp;
 
