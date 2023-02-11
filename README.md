@@ -40,14 +40,14 @@ Add some usage instructions here. and do a gif.
 
 ## Extension Settings
 
-### General:
+General:
 
 - #### **soloMode**
   - Turns the extension on/off.
 - #### **solodFiles**
   - The files you want to focus on.
 
-### Keybindings:
+Keybindings:
 
 - #### **alt + \`**
   - Toggles soloMode on/off.
