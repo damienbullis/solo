@@ -1,4 +1,4 @@
-<img style="max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
+### <img style="max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
 
 # `SOLO`
 
@@ -43,10 +43,15 @@ This extension contributes the following settings:
 
 ## Roapmap
 
-<!-- NEXT: Add in roadmap -->
+- [ ] Get icons
+  - [ ] For soloMode
+  - [ ] File Decorations for solod files
+- [ ] Finish error handling and user/system feedback
+- [ ] Swap to clean repo
+- [ ] Finish Readme
+- [ ] Add in gifs / screenshots
+- [ ] Publish to marketplace
 
-&nbsp;
+<!-- &nbsp;
 
-## Known Issues
-
-<!-- NEXT: Add in known issues -->
+## Known Issues -->

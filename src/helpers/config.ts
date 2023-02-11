@@ -75,5 +75,9 @@ export async function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
       value,
       error,
     });
+
+    throw new Error(
+      typeof error === "string" ? error : `Error updating config for ${key}`
+    );
   }
 }
