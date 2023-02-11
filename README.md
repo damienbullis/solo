@@ -42,12 +42,15 @@ Add some usage instructions here. and do a gif.
 
 ### General:
 
-- #### **soloMode** `Turns the extension on/off`
-- #### **solodFiles** `The files you want to focus on`
+- #### **soloMode**
+  - Turns the extension on/off.
+- #### **solodFiles**
+  - The files you want to focus on.
 
 ### Keybindings:
 
-- #### **alt + \`** `Toggles soloMode on/off`
+- #### **alt + \`**
+  - Toggles soloMode on/off.
 
 &nbsp;
 
