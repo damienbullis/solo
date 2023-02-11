@@ -6,8 +6,6 @@
 
 ---
 
-&nbsp;
-
 ### Table of Contents
 
 - [Usage](#usage)
