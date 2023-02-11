@@ -58,6 +58,9 @@ export default function (context: vs.ExtensionContext) {
         (file: string) => !results.includes(file)
       );
 
+      if (nextSolodFiles.length === 0) {
+        await commands.executeCommand("solo.mode.disable");
+      }
       await updateConfig("solo.solodFiles", nextSolodFiles);
       await commands.executeCommand(
         "setContext",
