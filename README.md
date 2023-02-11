@@ -1,16 +1,10 @@
-# SOLO
+### <img style="float: left; max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner"> **`Solo`**
 
-&nbsp;
-
-### <img style="float: left; max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
-
-**`Solo`** is a file explorer extension for **_reducing clutter_** and **_focusing_** on the files you want to see.
+is a file explorer extension for **_reducing clutter_** and **_focusing_** on the files you want to see.
 
 ---
 
 ~~You can download the extension from the [Visual Studio Code Marketplace](#).~~
-
-&nbsp;
 
 &nbsp;
 
@@ -41,14 +35,13 @@ Add some usage instructions here. and do a gif.
 
 This extension contributes the following settings:
 
-### General:
+#### General:
 
 - `solo.soloMode`: Turns the extension on/off.
-  - while in **`soloMode`** you will only see the files you want to see.
-  - when soloMode is off, you will see all files.
-- `solo.solodFiles`: The files you want to see.
+- `solo.solodFiles`: The files you want to focus on.
+- `Others??`
 
-### Keybindings:
+#### Keybindings:
 
 - **alt + \`**
   - Toggles `soloMode` on/off.
