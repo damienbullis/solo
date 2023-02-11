@@ -1,10 +1,24 @@
-### <img style="max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
+# SOLO
 
-# `SOLO`
+&nbsp;
 
-is a file explorer extension for **reducing clutter** and focusing on the files you want to see.
+### <img style="float: left; max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
 
-<!-- &nbsp; -->
+**`Solo`** is a file explorer extension for **_reducing clutter_** and **_focusing_** on the files you want to see.
+
+---
+
+~~You can download the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=damienbullis.solo).~~
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
 
 <!-- `Features:`
 
