@@ -58,6 +58,9 @@ This extension contributes the following settings:
 - [ ] Finish Readme
 - [ ] Add in gifs / screenshots
 - [ ] Publish to marketplace
+- [ ] Add in badges
+- [ ] Performance Improvements
+  - [ ] Caching
 
 <!-- &nbsp;
 
