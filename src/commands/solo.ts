@@ -45,7 +45,7 @@ export default function (context: vs.ExtensionContext) {
         "solo.solodFiles",
         nextSolodFiles
       );
-      await commands.executeCommand("solo.solo.update");
+      await commands.executeCommand("solo.solo.update", nextSolodFiles);
 
       $LOG("solo.add", LOG_TYPES.INFO, { selected, results });
     }),
@@ -67,7 +67,7 @@ export default function (context: vs.ExtensionContext) {
         "solo.solodFiles",
         nextSolodFiles
       );
-      await commands.executeCommand("solo.solo.update");
+      await commands.executeCommand("solo.solo.update", nextSolodFiles);
 
       $LOG("solo.remove - complete", LOG_TYPES.SYSTEM_SUCCESS);
     }),

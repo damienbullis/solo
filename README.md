@@ -1,27 +1,36 @@
-### <img style="float: left; max-height: 300px; margin-right: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner"> **`Solo`**
+# SOLO
 
-is a file explorer extension for **_reducing clutter_** and **_focusing_** on the files you want to see.
+### <img style="float: right; max-height: 300px; margin-left: 2em; margin-bottom: 2em;" src="https://github.com/damienbullis/solo/blob/main/assets/solo-banner.png?raw=true" alt="SOLO Banner">
+
+~~Find `SOLO` in the [Visual Studio Code Marketplace](#).~~
 
 ---
 
-~~You can download the extension from the [Visual Studio Code Marketplace](#).~~
+&nbsp;
+
+### Table of Contents
+
+- [Usage](#usage)
+- [Extension Settings](#extension-settings)
+- [About](#about)
+- [Roapmap](#roapmap)
+- [Known Issues](#known-issues)
 
 &nbsp;
 
 &nbsp;
 
-&nbsp;
+## About
 
-&nbsp;
+In the VS Code Marketplace, there were some other extensions that did hiding and showing files, but they typically are focused on selecting the files you want to **_hide_** vs the files you want to **_see_**.
 
-<!-- `Features:`
+This can be really tedious. Requiring lots of clicks, or requiring you to be in a new view in vscode.
 
-- Provides the fastest and simplest way to hide/show files.
-- Save you time searching for files.
-- Reduce clutter in your file explorer.
-- Hide files you don't want to see. -->
+> With **`SOLO`** I wanted to make focusing on files as simple as possible.
 
-<!-- > `SOLO` is available in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=damienbullis.solo). -->
+- With **1** click, hide all files except the ones you want to focus on.
+- With **1** hotkey to toggle `soloMode` on/off.
+- Use the default file explorer view.
 
 &nbsp;
 
@@ -33,18 +42,14 @@ Add some usage instructions here. and do a gif.
 
 ## Extension Settings
 
-This extension contributes the following settings:
+### General:
 
-#### General:
+- #### **soloMode** `Turns the extension on/off`
+- #### **solodFiles** `The files you want to focus on`
 
-- `solo.soloMode`: Turns the extension on/off.
-- `solo.solodFiles`: The files you want to focus on.
-- `Others??`
+### Keybindings:
 
-#### Keybindings:
-
-- **alt + \`**
-  - Toggles `soloMode` on/off.
+- #### **alt + \`** `Toggles soloMode on/off`
 
 &nbsp;
 
@@ -62,6 +67,22 @@ This extension contributes the following settings:
 - [ ] Performance Improvements
   - [ ] Caching
 
-<!-- &nbsp;
+&nbsp;
 
-## Known Issues -->
+## Known Issues
+
+Multiple vscode windows.
+
+&nbsp;
+
+### Problem
+
+Because some projects can be set up to use the local `.vscode` folders as part of the repo and are not ignored by git, this would mean any time a user was using `solo`, it would be making changes to the `.vscode/settings.json` file in the repo, which means that the user would have to be careful not to commit these changes, and would show up in Source Control.
+
+**Not Great.**
+
+&nbsp;
+
+### Solution (not ideal but works for now)
+
+Was to use the global `settings.json` since those are outside of repos. This introduced the new issue of while multiple vscode windows are open, the global `files.exclude` settings are shared between all windows, so files will be hidden or shown in all windows. It also means that if you are in soloMode in one window, you will be in soloMode in all windows, which is also not ideal, but seemed like a better trade off than dealing with source control and messing with repo specific settings.

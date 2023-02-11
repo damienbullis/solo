@@ -60,8 +60,8 @@ const getNestedFiles = async (
   return results;
 };
 
-export default async function () {
-  $LOG("Processing Solod Files", LOG_TYPES.SYSTEM);
+export default async function (solod?: string[]) {
+  $LOG("Processing Solod Files", LOG_TYPES.SYSTEM, { solod });
 
   const solodFiles = inspectConfig("solo.solodFiles");
   const soloMode = inspectConfig("solo.soloMode");
