@@ -11,8 +11,8 @@
 - [About](#about)
 - [Usage](#usage)
 - [Extension Settings](#extension-settings)
-- [Roapmap](#roapmap)
 - [Known Issues](#known-issues)
+- [Roapmap](#roapmap)
 
 &nbsp;
 
@@ -54,7 +54,7 @@ Keybindings:
 
 - [ ] Get icons
   - [ ] For soloMode
-  - [ ] File Decorations for solod files
+  - [ ] Discover - File Decorations for solod files in file explorer
 - [ ] Finish error handling and user/system feedback
 - [ ] Swap to clean repo
 - [ ] Finish Readme
@@ -62,7 +62,6 @@ Keybindings:
 - [ ] Publish to marketplace
 - [ ] Add in badges
 - [ ] Performance Improvements
-  - [ ] Caching
 
 &nbsp;
 
