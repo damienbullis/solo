@@ -8,9 +8,9 @@
 
 ### Table of Contents
 
+- [About](#about)
 - [Usage](#usage)
 - [Extension Settings](#extension-settings)
-- [About](#about)
 - [Roapmap](#roapmap)
 - [Known Issues](#known-issues)
 
@@ -20,11 +20,7 @@
 
 ## About
 
-In the VS Code Marketplace, there were some other extensions that did hiding and showing files, but they typically are focused on selecting the files you want to **_hide_** vs the files you want to **_see_**.
-
-This can be really tedious. Requiring lots of clicks, or requiring you to be in a new view in vscode.
-
-> With **`SOLO`** I wanted to make focusing on files as simple as possible.
+In the VS Code Marketplace, there were some other extensions that did hiding and showing files, but they typically are focused on selecting the files you want to **_HIDE_** versus the files you want to **_SEE_**.
 
 - With **1** click, hide all files except the ones you want to focus on.
 - With **1** hotkey to toggle `soloMode` on/off.
