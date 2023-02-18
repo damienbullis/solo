@@ -10,7 +10,7 @@ const { commands } = vs;
  *    - This will show all files (in the current workspace)
  */
 export default async function () {
-  log.group("Initialize Solo Mode");
+  log.info("Initialize Solo Mode");
 
   // Check if we have a previous value of soloMode
   const soloMode = inspectConfig("solo.soloMode");
@@ -18,5 +18,4 @@ export default async function () {
   // Set context for soloMode to allow for conditional Commands, Menus, and File Explorer decorations
   await commands.executeCommand("setContext", "solo.soloMode", soloMode);
   log.debug(`setContext --> ${soloMode}`);
-  log.end();
 }

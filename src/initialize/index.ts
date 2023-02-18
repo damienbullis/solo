@@ -7,11 +7,9 @@ import { log } from "../helpers";
 const { workspace } = vs;
 
 export default async function (context: vs.ExtensionContext) {
-  log.group("Initialize Extension");
+  log.info("Initialize Extension");
 
   await initializeMode();
   await initializeExclude();
   await initializeSolodFiles();
-
-  log.end();
 }

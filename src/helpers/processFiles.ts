@@ -71,11 +71,10 @@ export default async function (solod?: string[]) {
   const nextExclude = initialExclude || {};
 
   if (soloMode === false) {
-    log.group("Solo Mode is disabled, setting exclude to initialExclude");
+    log.info("Solo Mode is disabled, setting exclude to initialExclude");
     await updateConfig("files.exclude", nextExclude);
-    log.end();
   } else {
-    log.group("Solo Mode is enabled, processing solodFiles");
+    log.info("Solo Mode is enabled, processing solodFiles");
 
     if (solodFiles !== undefined) {
       let exclude: Record<string, boolean> = {};
@@ -143,7 +142,6 @@ export default async function (solod?: string[]) {
       log.info({ exclude });
       await updateConfig("files.exclude", exclude);
     }
-    log.end();
   }
 
   log.end();

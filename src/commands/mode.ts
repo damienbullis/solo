@@ -4,7 +4,7 @@ import { log, updateConfig } from "../helpers";
 const { commands } = vs;
 
 export default ({ subscriptions }: vs.ExtensionContext) => {
-  log.group("Build Mode Commands");
+  log.info("Registering Mode Commands");
 
   // Register Mode Commands
   subscriptions.push(
@@ -29,5 +29,4 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       log.debug("Setting Mode -> FALSE (after solo.update)");
     })
   );
-  log.end();
 };

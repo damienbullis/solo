@@ -1,7 +1,7 @@
 import { log, inspectConfig, updateConfig } from "../helpers";
 
 export default async function () {
-  log.group("Initialize Exclude & InitialExclude");
+  log.info("Initialize Exclude & InitialExclude");
   // initialExclude --> files.exclude
   const initialExclude = inspectConfig("solo.initialExclude");
   const exclude = inspectConfig("files.exclude");
@@ -23,5 +23,4 @@ export default async function () {
       await updateConfig("solo.initialExclude", exclude);
     }
   }
-  log.end();
 }

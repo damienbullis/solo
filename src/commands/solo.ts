@@ -18,7 +18,7 @@ const getPaths = (selected: vs.Uri[]) => {
 };
 
 export default function (context: vs.ExtensionContext) {
-  log.group("Registering solo commands");
+  log.info("Registering solo commands");
   const { subscriptions } = context;
   subscriptions.push(
     commands.registerCommand("solo.solo.add", async (...args) => {
@@ -76,5 +76,4 @@ export default function (context: vs.ExtensionContext) {
 
     commands.registerCommand("solo.solo.update", processFiles)
   );
-  log.end();
 }

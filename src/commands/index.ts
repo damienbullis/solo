@@ -6,12 +6,10 @@ import buildSoloCommands from "./solo";
 import { log } from "../helpers";
 
 export default function buildCommands(context: ExtensionContext) {
-  log.group("Building Extension Commands");
+  log.info("Building Extension Commands");
 
   buildModeCommands(context);
   buildSoloCommands(context);
-
-  log.end();
 
   // TODO: Add commands for:
   // _commands.push(commands.registerCommand("solo.profile.add", () => {}));

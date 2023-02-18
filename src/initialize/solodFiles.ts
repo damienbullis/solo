@@ -4,7 +4,7 @@ import { log, inspectConfig } from "../helpers";
 const { commands } = vs;
 
 export default async function () {
-  log.group("Initialize Solo List");
+  log.info("Initialize Solo List");
 
   const solodFiles = inspectConfig("solo.solodFiles");
 
@@ -12,6 +12,4 @@ export default async function () {
   log.debug("set context for solodFiles");
   log.info({ solodFiles });
   await commands.executeCommand("setContext", "solo.solodFiles", solodFiles);
-
-  log.end();
 }
