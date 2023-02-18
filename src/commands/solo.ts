@@ -1,18 +1,12 @@
 import * as vs from "vscode";
-import {
-  $LOG,
-  inspectConfig,
-  LOG_TYPES,
-  processFiles,
-  updateConfig,
-} from "../helpers";
+import { inspectConfig, log, processFiles, updateConfig } from "../helpers";
 
 const { commands, workspace, Uri } = vs;
 
 const getPaths = (selected: vs.Uri[]) => {
   const workspacePath = workspace.workspaceFolders?.[0].uri.fsPath;
   if (workspacePath === undefined) {
-    $LOG("Error: Workspace path undefined", LOG_TYPES.SYSTEM_ERROR);
+    log.warn("Error: Workspace path undefined");
     return [];
   }
   const results: string[] = [];
@@ -24,7 +18,7 @@ const getPaths = (selected: vs.Uri[]) => {
 };
 
 export default function (context: vs.ExtensionContext) {
-  $LOG("Build Solo Commands", LOG_TYPES.SYSTEM);
+  log.group("Registering solo commands");
   const { subscriptions } = context;
   subscriptions.push(
     commands.registerCommand("solo.solo.add", async (...args) => {
@@ -46,8 +40,7 @@ export default function (context: vs.ExtensionContext) {
         nextSolodFiles
       );
       await commands.executeCommand("solo.solo.update", nextSolodFiles);
-
-      $LOG("solo.add", LOG_TYPES.INFO, { selected, results });
+      log.debug("solo.add - complete");
     }),
     commands.registerCommand("solo.solo.remove", async (...args) => {
       const solodFiles = inspectConfig("solo.solodFiles");
@@ -69,7 +62,7 @@ export default function (context: vs.ExtensionContext) {
       );
       await commands.executeCommand("solo.solo.update", nextSolodFiles);
 
-      $LOG("solo.remove - complete", LOG_TYPES.SYSTEM_SUCCESS);
+      log.debug("solo.remove - complete");
     }),
     commands.registerCommand("solo.solo.reset", async () => {
       await updateConfig("solo.soloMode", false);
@@ -78,10 +71,10 @@ export default function (context: vs.ExtensionContext) {
       await commands.executeCommand("setContext", "solo.solodFiles", []);
       await commands.executeCommand("setContext", "solo.solodMode", false);
 
-      $LOG("solo.reset - reseting solo list", LOG_TYPES.SYSTEM_SUCCESS);
+      log.debug("solo.reset - reseting solo list");
     }),
 
     commands.registerCommand("solo.solo.update", processFiles)
   );
-  $LOG("Build Solo Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  log.end();
 }

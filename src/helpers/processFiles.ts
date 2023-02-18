@@ -1,5 +1,5 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES } from ".";
+import { log } from ".";
 import { inspectConfig, updateConfig } from "./config";
 
 const { workspace } = vs;
@@ -16,7 +16,8 @@ const getNestedFiles = async (
   directories: Set<string>,
   rootPath: string
 ) => {
-  $LOG("Getting Nested Files", LOG_TYPES.SYSTEM, {
+  log.debug("getNestedFiles");
+  log.info({
     solodFiles,
     directories,
     rootPath,
@@ -54,14 +55,14 @@ const getNestedFiles = async (
           results[filePath] = pathParts.includes(fileName) ? false : true;
         }
       }
-      $LOG("results", LOG_TYPES.INFO, { results });
+      log.info({ results });
     }
   }
   return results;
 };
 
 export default async function (solod?: string[]) {
-  $LOG("Processing Solod Files", LOG_TYPES.SYSTEM, { solod });
+  log.group("Processing Solod Files");
 
   const solodFiles = inspectConfig("solo.solodFiles");
   const soloMode = inspectConfig("solo.soloMode");
@@ -70,10 +71,11 @@ export default async function (solod?: string[]) {
   const nextExclude = initialExclude || {};
 
   if (soloMode === false) {
-    $LOG("Solo Mode is disabled, setting exclude to initialExclude");
+    log.group("Solo Mode is disabled, setting exclude to initialExclude");
     await updateConfig("files.exclude", nextExclude);
+    log.end();
   } else {
-    $LOG("Solo Mode is enabled, processing solodFiles");
+    log.group("Solo Mode is enabled, processing solodFiles");
 
     if (solodFiles !== undefined) {
       let exclude: Record<string, boolean> = {};
@@ -118,7 +120,7 @@ export default async function (solod?: string[]) {
               }
             }
             const results = await getNestedFiles(solod, d, folderPath);
-            $LOG("after processing", LOG_TYPES.SYSTEM_WARN, {
+            log.info({
               d,
               f,
               results,
@@ -131,19 +133,18 @@ export default async function (solod?: string[]) {
               },
               { ...exclude, ...results }
             );
-            $LOG("afterwards:", LOG_TYPES.INFO, {
-              exclude,
-            });
           } else {
             exclude["**"] = true;
           }
         }
       }
 
-      $LOG("Setting exclude with:", LOG_TYPES.SYSTEM_SUCCESS, { exclude });
+      log.debug("Setting exclude with:");
+      log.info({ exclude });
       await updateConfig("files.exclude", exclude);
     }
+    log.end();
   }
 
-  $LOG("Processing Solod Files Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  log.end();
 }

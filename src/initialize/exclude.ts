@@ -1,25 +1,27 @@
-import { $LOG, LOG_TYPES, inspectConfig, updateConfig } from "../helpers";
+import { log, inspectConfig, updateConfig } from "../helpers";
 
 export default async function () {
-  $LOG("Initialize Exclude", LOG_TYPES.SYSTEM);
+  log.group("Initialize Exclude & InitialExclude");
   // initialExclude --> files.exclude
   const initialExclude = inspectConfig("solo.initialExclude");
   const exclude = inspectConfig("files.exclude");
 
   // if we have an initialExclude, we need to reset the files.exclude
   if (initialExclude !== false) {
-    $LOG("Exclude being set to initialExclude", LOG_TYPES.SYSTEM_WARN, {
+    log.debug("Exclude being set to initialExclude");
+    log.info({
       setTo: initialExclude,
     });
     await updateConfig("files.exclude", initialExclude);
   } else {
     // if we don't have an initialExclude, we need to reset the files.exclude
     if (exclude !== undefined) {
-      $LOG("InitialExclude being set to exclude", LOG_TYPES.SYSTEM_WARN, {
-        setTo: exclude,
+      log.debug("InitialExclude being set to exclude");
+      log.info({
+        exclude,
       });
       await updateConfig("solo.initialExclude", exclude);
     }
   }
-  $LOG("Initialize Exclude List - Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  log.end();
 }

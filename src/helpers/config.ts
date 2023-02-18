@@ -1,5 +1,4 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES } from ".";
 
 const { workspace } = vs;
 
@@ -42,12 +41,7 @@ export function inspectConfig<K extends FirstKey, S extends SecondKey<K>>(
   const configObject = getConfiguration(config);
   const { globalValue, defaultValue } =
     configObject.inspect<getType<K, S>>(prop) || {};
-  $LOG("inspectConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
-    config,
-    prop,
-    globalValue,
-    defaultValue,
-  });
+
   if (key === "files.exclude") {
     // Dont return default values for files.exclude
     return globalValue as getType<K, S>;
@@ -63,19 +57,7 @@ export async function updateConfig<K extends FirstKey, S extends SecondKey<K>>(
   const configObject = getConfiguration(config);
   try {
     await configObject.update(prop, value, vs.ConfigurationTarget.Global);
-    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.STORE, {
-      config,
-      prop,
-      value,
-    });
   } catch (error) {
-    $LOG("updateConfig ▼ ▼ ▼", LOG_TYPES.SYSTEM_ERROR, {
-      config,
-      prop,
-      value,
-      error,
-    });
-
     throw new Error(
       typeof error === "string" ? error : `Error updating config for ${key}`
     );

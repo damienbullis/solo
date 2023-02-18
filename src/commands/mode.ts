@@ -1,10 +1,10 @@
 import * as vs from "vscode";
-import { $LOG, LOG_TYPES, inspectConfig, updateConfig } from "../helpers";
+import { log, updateConfig } from "../helpers";
 
 const { commands } = vs;
 
 export default ({ subscriptions }: vs.ExtensionContext) => {
-  $LOG("Build Mode Commands", LOG_TYPES.SYSTEM);
+  log.group("Build Mode Commands");
 
   // Register Mode Commands
   subscriptions.push(
@@ -16,10 +16,7 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       // Trigger the update command to reset the exclude list
       await commands.executeCommand("solo.solo.update");
 
-      $LOG(
-        "Setting Mode -> TRUE (after solo.update)",
-        LOG_TYPES.SYSTEM_SUCCESS
-      );
+      log.debug("Setting Mode -> TRUE (after solo.update)");
     }),
     commands.registerCommand("solo.mode.disable", async () => {
       // Set the solo mode to false
@@ -29,11 +26,8 @@ export default ({ subscriptions }: vs.ExtensionContext) => {
       // Set the exclude list to be empty
       await updateConfig("files.exclude", {});
 
-      $LOG(
-        "Setting Mode -> FALSE (after solo.update)",
-        LOG_TYPES.SYSTEM_SUCCESS
-      );
+      log.debug("Setting Mode -> FALSE (after solo.update)");
     })
   );
-  $LOG("Build Mode Commands - Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  log.end();
 };

@@ -2,16 +2,16 @@ import * as vs from "vscode";
 import initializeMode from "./mode";
 import initializeExclude from "./exclude";
 import initializeSolodFiles from "./solodFiles";
-import { $LOG, LOG_TYPES } from "../helpers";
+import { log } from "../helpers";
 
 const { workspace } = vs;
 
 export default async function (context: vs.ExtensionContext) {
-  $LOG("Initialize Extension", LOG_TYPES.SYSTEM);
+  log.group("Initialize Extension");
 
   await initializeMode();
   await initializeExclude();
   await initializeSolodFiles();
 
-  $LOG("Initialize Extension - Complete", LOG_TYPES.SYSTEM_SUCCESS);
+  log.end();
 }
